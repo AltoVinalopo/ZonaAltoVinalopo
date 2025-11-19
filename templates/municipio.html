@@ -1,6 +1,78 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ municipio.name }}</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<header>
+    <h1>{{ municipio.name }}</h1>
+</header>
+<main>
+    <section>
+        <h2>Historia</h2>
+        <p>{{ municipio.history | safe }}</p>
+    </section>
 
-{% extends 'layout.html' %}
-{% block content %}
-<h2>{{ municipio.nombre }}</h2>
-<p>Información pendiente.</p>
-{% endblock %}
+    <section>
+        <h2>Resultados</h2>
+        {% if municipio.name in resultados %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Partido</th>
+                    <th>Votos</th>
+                    <th>Concejales</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for partido in ['PP', 'PSOE', 'VOX', 'Podemos', 'Compromís', 'Otros'] %}
+                <tr>
+                    <td>{{ partido }}</td>
+                    <td>{{ resultados[municipio.name]['votos'][partido] }}</td>
+                    <td>{{ resultados[municipio.name]['concejales'][partido] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No hay datos disponibles.</p>
+        {% endif %}
+    </section>
+
+    <section>
+        <h2>Datos</h2>
+        <ul>
+            <li>Habitantes: {{ municipio.inhabitants }}</li>
+            <li>Afiliados: {{ municipio.affiliates }}</li>
+            <li>Coordinador: {{ municipio.coordinador }}</li>
+            <li>LISTA: {{ municipio.LISTA }}</li>
+            <li>Votos que faltaron para un concejal más: {{ municipio.votos_necesarios }}</li>
+        </ul>
+    </section>
+    <section>
+        <h2>Eventos</h2>
+        <ul>
+            {% for event in municipio.events %}
+                <li>
+                    {{ event }}
+                    <form action="/remove_event/{{ municipio.name }}" method="POST" style="display: inline;">
+                        <input type="hidden" name="event_name" value="{{ event }}">
+                        <button type="submit" class="button">Eliminar</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+        <form action="/add_event/{{ municipio.name }}" method="POST">
+            <input type="text" name="event_name" placeholder="Nuevo evento">
+            <button type="submit" class="button">Añadir</button>
+        </form>
+    </section>
+    <!-- Botón de volver -->
+    <a href="/" class="btn-back">Atrás</a>
+    </main>
+</body>
+</html>
