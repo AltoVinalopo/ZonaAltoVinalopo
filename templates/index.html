@@ -1,0 +1,10 @@
+
+{% extends 'layout.html' %}
+{% block content %}
+<h2>Municipios</h2>
+<div class="municipios-grid">
+{% for municipio in municipios %}
+  <a class="municipio-btn" href="/municipio/{{ municipio.nombre }}">{{ municipio.nombre }}</a>
+{% endfor %}
+</div>
+{% endblock %}
