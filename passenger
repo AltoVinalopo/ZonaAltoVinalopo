@@ -1,0 +1,5 @@
+PassengerEnabled on
+PassengerAppRoot /var/www/vhosts/practical-kalam.82-165-173-231.plesk.page/httpdocs/coordinacion
+PassengerAppType wsgi
+PassengerStartupFile passenger_wsgi.py
+PassengerPython /var/www/vhosts/practical-kalam.82-165-173-231.plesk.page/httpdocs/coordinacion/venv/bin/python3
