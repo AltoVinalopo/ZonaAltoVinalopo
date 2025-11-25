@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Municipios</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<header>
+    <h1>Gestión de Municipios</h1>
+</header>
+<main>
+    <ul class="municipios-list">
+        {% for municipio in municipios %}
+            <li>
+                <a href="/municipio/{{ municipio.name }}">{{ municipio.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <section>
+        <h2>Mapa Alacantí</h2>
+        <object data="/static/images/mapa_alacanti.svg" type="image/svg+xml" class="interactive-map">
+            <!-- Mensaje alternativo -->
+            Tu navegador no soporta gráficos SVG.
+        </object>
+    </section>
+</main>
+</body>
+</html>
+
+
