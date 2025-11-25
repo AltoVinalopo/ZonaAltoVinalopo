@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Panel{% endblock %}
+{% block body %}
+<div class="panel">
+  <div class="panel-header">
+    <h1>Panel de coordinación</h1>
+    <div>Usuario: {{ user.username }} ({{ user.role }}) |
+      <a href="{{ url_for('auth.logout') }}">Salir</a>
+    </div>
+  </div>
+  <div class="panel-grid">
+    {% if user.role in [ROLES.ADMIN_GENERAL, ROLES.ADMIN_VISOR, ROLES.COORDINADOR] %}
+    <a class="panel-card" href="{{ url_for('zonas.index') }}">
+      <h2>Zonas y municipios</h2>
+      <p>Acceso a la coordinación territorial.</p>
+    </a>
+    {% endif %}
+    {% if user.role in [ROLES.ADMIN_GENERAL, ROLES.ADMIN_VISOR, ROLES.ADMIN_AYUNTAMIENTOS, ROLES.CONCEJAL] %}
+    <a class="panel-card" href="{{ url_for('aytos.index') }}">
+      <h2>Ayuntamientos</h2>
+      <p>Últimas iniciativas y buscador municipal.</p>
+    </a>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
