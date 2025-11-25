@@ -1,0 +1,146 @@
+﻿/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 1em 0;
+    text-align: center;
+}
+
+main {
+    padding: 1em;
+}
+
+/* Lista de municipios */
+.municipios-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.municipios-list li {
+    flex: 1 1 calc(33.33% - 10px);
+    max-width: 200px;
+}
+
+.municipios-list a {
+    display: block;
+    padding: 15px 20px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1em;
+    transition: all 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.municipios-list a:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+/* Estilo unificado para todos los botones */
+.button {
+    margin-top: 10px; /* Espaciado superior */
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.button:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+/* Botón "Atrás" */
+button, .btn-back {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+button:hover, .btn-back:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+/* Alinear el botón "Atrás" debajo del formulario */
+.btn-back {
+    display: block; /* Hace que ocupe una fila completa */
+    margin: 30px auto 0; /* Centra el botón y añade espacio superior */
+    text-align: center;
+}
+
+/* Asegurar que los elementos dentro del formulario se alineen correctamente */
+form {
+    display: flex;
+    gap: 10px; /* Espacio entre los elementos del formulario */
+    align-items: center; /* Alinea verticalmente los elementos */
+}
+
+/* Media Queries para dispositivos móviles */
+@media (max-width: 768px) {
+    .municipios-list li {
+        flex: 1 1 calc(50% - 10px);
+    }
+
+    .btn-back {
+        font-size: 0.9em;
+        padding: 8px 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .municipios-list li {
+        flex: 1 1 calc(100% - 10px);
+    }
+
+    header {
+        font-size: 1.5em;
+    }
+
+    .btn-back {
+        font-size: 0.8em;
+        padding: 6px 12px;
+    }
+    /* Estilos para el mapa interactivo */
+    .interactive-map {
+        width: 100%; /* Escalar al ancho disponible */
+        max-width: 800px; /* Tamaño máximo */
+        margin: 20px auto; /* Centrado con margen */
+        display: block;
+        border: 2px solid #ddd; /* Borde alrededor del mapa */
+        border-radius: 8px; /* Bordes redondeados */
+    }
+
+}
