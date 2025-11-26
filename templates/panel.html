@@ -11,7 +11,7 @@
       <a href="{{ url_for('auth.logout') }}">Salir</a>
     </div>
   </div>
-
+  
   <div class="panel-grid">
 
     {# --------------------- #
@@ -22,12 +22,13 @@
        - COORDINADOR
        --------------------- #}
 
-    {% if usuario.role in ["ADMIN_GENERAL", "ADMIN_VISOR", "COORDINADOR"] %}
-    <a class="panel-card" href="{{ url_for('zonas.index') }}">
-      <h2>Zonas y municipios</h2>
-      <p>Acceso a la coordinación territorial.</p>
-    </a>
-    {% endif %}
+   {# ENLACE TEMPORALMENTE DESACTIVADO #}
+{% if False %}
+<a class="panel-card" href="#">
+  <h2>Zonas y municipios</h2>
+  <p>Acceso a la coordinación territorial.</p>
+</a>
+{% endif %}
 
     {# --------------------- #
        Acceso AYUNTAMIENTOS
