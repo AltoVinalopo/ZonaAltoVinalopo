@@ -5,46 +5,27 @@
 <div class="panel">
   <div class="panel-header">
     <h1>Panel de coordinación</h1>
-
     <div>
       Usuario: {{ usuario.username }} ({{ usuario.role }}) |
       <a href="{{ url_for('auth.logout') }}">Salir</a>
     </div>
   </div>
-  
+
   <div class="panel-grid">
 
-    {# --------------------- #
-       Acceso a ZONAS
-       Permitido para:
-       - ADMIN_GENERAL
-       - ADMIN_VISOR
-       - COORDINADOR
-       --------------------- #}
+    <!-- ZONAS (solo admin) -->
+    {% if usuario.role == "ADMIN_GENERAL" %}
+      <a class="panel-card" href="{{ url_for('zonas.index') }}">
+        <h2>Zonas y municipios</h2>
+        <p>Coordinación territorial por zonas.</p>
+      </a>
+    {% endif %}
 
-   {# ENLACE TEMPORALMENTE DESACTIVADO #}
-{% if False %}
-<a class="panel-card" href="#">
-  <h2>Zonas y municipios</h2>
-  <p>Acceso a la coordinación territorial.</p>
-</a>
-{% endif %}
-
-    {# --------------------- #
-       Acceso AYUNTAMIENTOS
-       Permitido para:
-       - ADMIN_GENERAL
-       - ADMIN_VISOR
-       - ADMIN_AYUNTAMIENTOS
-       - CONCEJAL
-       --------------------- #}
-
-    {% if usuario.role in ["ADMIN_GENERAL", "ADMIN_VISOR", "ADMIN_AYUNTAMIENTOS", "CONCEJAL"] %}
-    <a class="panel-card" href="{{ url_for('aytos.index') }}">
+    <!-- AYUNTAMIENTOS -->
+    <a class="panel-card" href="{{ url_for('aytos.panel') }}">
       <h2>Ayuntamientos</h2>
       <p>Últimas iniciativas y buscador municipal.</p>
     </a>
-    {% endif %}
 
   </div>
 </div>
