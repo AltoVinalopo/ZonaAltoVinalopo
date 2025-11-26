@@ -1,50 +1,33 @@
-from flask import Blueprint, render_template, redirect, url_for, flash, request
-from flask_login import login_user, logout_user, login_required
-
-from app import db
+from flask import render_template, request, redirect, url_for
+from flask_login import login_user, logout_user, current_user
+from . import auth_bp
 from modelos.user import User
 
-auth_bp = Blueprint("auth", __name__)
-
-
-@auth_bp.route("/login", methods=["GET", "POST"])
+@auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
-    if request.method == "POST":
-        username = request.form.get("username")
-        password = request.form.get("password")
+    error = None
+
+    if current_user.is_authenticated:
+        return redirect(url_for('aytos_bp.panel'))
+
+    if request.method == 'POST':
+        username = request.form['username'].strip()
+        password = request.form['password']
 
         user = User.query.filter_by(username=username).first()
 
         if not user or not user.check_password(password):
-            flash("Usuario o contraseña incorrectos", "danger")
-            return redirect(url_for("auth.login"))
+            error = "Usuario o contraseña incorrectos"
+        else:
+            login_user(user)
+            return redirect(url_for('aytos_bp.panel'))
 
-        login_user(user)
-        return redirect(url_for("dashboard"))
-
-    return render_template("login.html")
+    return render_template('login.html', error=error)
 
 
-@auth_bp.route("/logout")
-@login_required
+@auth_bp.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for("auth.login"))
-@auth_bp.route('/crear-admin')
-def crear_admin():
-    from modelos.user import User
-    from app import db
+    return redirect(url_for('auth.login'))
 
-    # Si ya existe, no lo vuelve a crear
-    existing = User.query.filter_by(username="admin").first()
-    if existing:
-        return "El usuario admin ya existe"
-
-    admin = User(username="admin", role="ADMIN_GENERAL")
-    admin.set_password("admin1234")
-
-    db.session.add(admin)
-    db.session.commit()
-
-    return "Usuario admin creado correctamente"
 
