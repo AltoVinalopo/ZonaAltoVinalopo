@@ -1,11 +1,11 @@
-from flask import Flask, redirect, url_for
-from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, current_user
+from flask import Flask
 from config import Config
+from flask_login import LoginManager
+from modelos import db
 
-db = SQLAlchemy()
 login_manager = LoginManager()
 login_manager.login_view = "auth.login"
+
 
 def create_app():
     app = Flask(__name__)
@@ -14,33 +14,27 @@ def create_app():
     db.init_app(app)
     login_manager.init_app(app)
 
-    from modelos.user import User  # noqa: F401
-
+    # Importar blueprints
     from auth.routes import auth_bp
     from ayuntamientos.routes import aytos_bp
-    from zonas.routes import zonas_bp
 
     app.register_blueprint(auth_bp)
     app.register_blueprint(aytos_bp)
-    app.register_blueprint(zonas_bp)
 
-    @app.route("/")
-    def index():
-        if current_user.is_authenticated:
-            return redirect(url_for("panel"))
-        return redirect(url_for("auth.login"))
+    # === CREAR TABLAS Y USUARIO ADMIN AUTOMÁTICAMENTE ===
+    with app.app_context():
+        from modelos.user import User
+        db.create_all()
 
-    from flask import render_template
-    from modelos.roles import ROLES
-
-    @app.route("/panel")
-    def panel():
-        if not current_user.is_authenticated:
-            return redirect(url_for("auth.login"))
-        return render_template("panel.html", user=current_user, ROLES=ROLES)
+        if not User.query.filter_by(username="admin").first():
+            admin = User(username="admin", role="ADMIN_GENERAL")
+            admin.set_password("admin1234")
+            db.session.add(admin)
+            db.session.commit()
+            print(">>> Usuario admin creado automáticamente")
 
     return app
 
+
 app = create_app()
-if __name__ == "__main__":
-    app.run()
+
