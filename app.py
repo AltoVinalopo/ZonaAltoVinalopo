@@ -38,6 +38,24 @@ def create_app():
 
     # Crear tablas + usuario admin
     with app.app_context():
+        from modelos.zona import Zona
+
+ZONAS_DEF = [
+    (1, "Zona 1 · Alacantí", "https://coordinacionalacanti.onrender.com/"),
+    (2, "Zona 2 · Alto Vinalopó", "https://coordinacionaltovinalopo.onrender.com/"),
+    (3, "Zona 3 · Bajo Vinalopó", "https://coordinacionbajovinalopo.onrender.com/"),
+    (4, "Zona 4 · Alcoià / Comtat", "https://coordinacionalcoy.onrender.com/"),
+    (5, "Zona 5 · Marina Alta", "https://coordinacionmarinaalta.onrender.com/"),
+    (6, "Zona 6 · Marina Baixa", "https://coordinacionmarinabaixa.onrender.com/"),
+    (7, "Zona 7 · Elche y entorno", "https://coordinacionelche.onrender.com/"),
+    (8, "Zona 8 · Vega Baja", "https://coordinacionvegabaja.onrender.com/"),
+]
+
+for zid, nombre, url in ZONAS_DEF:
+    if not Zona.query.get(zid):
+        db.session.add(Zona(id=zid, nombre=nombre, url=url))
+db.session.commit()
+
         db.create_all()
 
         if not User.query.filter_by(username="admin").first():
