@@ -30,4 +30,21 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for("auth.login"))
+@auth_bp.route('/crear-admin')
+def crear_admin():
+    from modelos.user import User
+    from app import db
+
+    # Si ya existe, no lo vuelve a crear
+    existing = User.query.filter_by(username="admin").first()
+    if existing:
+        return "El usuario admin ya existe"
+
+    admin = User(username="admin", role="ADMIN_GENERAL")
+    admin.set_password("admin1234")
+
+    db.session.add(admin)
+    db.session.commit()
+
+    return "Usuario admin creado correctamente"
 
