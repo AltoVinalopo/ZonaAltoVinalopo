@@ -1,7 +1,8 @@
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, flash
 from flask_login import login_user, logout_user, current_user
 from . import auth_bp
 from modelos.user import User
+from modelos import db
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
