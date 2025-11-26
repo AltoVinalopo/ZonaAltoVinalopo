@@ -1,9 +1,11 @@
-from app import db
+from modelos import db
 
 class Ayuntamiento(db.Model):
     __tablename__ = "ayuntamientos"
 
     id = db.Column(db.Integer, primary_key=True)
-    nombre = db.Column(db.String(120), unique=True, nullable=False)
+    nombre = db.Column(db.String(100), nullable=False)
+    municipio = db.Column(db.String(100), nullable=False)
 
-    iniciativas = db.relationship("Iniciativa", backref="ayuntamiento", lazy=True)
+    zonas = db.relationship("Zona", backref="ayuntamiento", lazy=True)
+    usuarios = db.relationship("User", backref="ayuntamiento", lazy=True)
