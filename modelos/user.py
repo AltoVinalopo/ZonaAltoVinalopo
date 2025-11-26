@@ -1,6 +1,8 @@
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
+
 from app import db, login_manager
+
 
 class User(UserMixin, db.Model):
     __tablename__ = "users"
@@ -8,7 +10,7 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
-    role = db.Column(db.String(40), nullable=False, default=ROLES["CONCEJAL"])
+    role = db.Column(db.String(40), nullable=False, default="CONCEJAL")
     zona_id = db.Column(db.Integer, db.ForeignKey("zonas.id"), nullable=True)
     ayuntamiento_id = db.Column(db.Integer, db.ForeignKey("ayuntamientos.id"), nullable=True)
 
@@ -21,7 +23,8 @@ class User(UserMixin, db.Model):
     def has_role(self, *roles):
         return self.role in roles
 
+
 @login_manager.user_loader
 def load_user(user_id):
-    from .user import User
     return User.query.get(int(user_id))
+
