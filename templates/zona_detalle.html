@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}{{ zona.nombre }}{% endblock %}
+
+{% block body %}
+<div class="panel">
+  <div class="panel-header">
+    <h1>{{ zona.nombre }}</h1>
+    <div>
+      Usuario: {{ usuario.username }} ({{ usuario.role }}) |
+      <a href="{{ url_for('zonas.index') }}">Volver a zonas</a> |
+      <a href="{{ url_for('auth.logout') }}">Salir</a>
+    </div>
+  </div>
+
+  <div class="panel-card">
+    <h2>Panel de {{ zona.nombre }}</h2>
+    <p>
+      Aquí conectaremos el proyecto específico de esta zona
+      (carpeta correspondiente dentro de <code>/zonas/</code>).
+    </p>
+
+    <p style="margin-top:1rem;">
+      De momento es sólo una página de prueba para comprobar que
+      la navegación de zonas funciona correctamente.
+    </p>
+  </div>
+</div>
+{% endblock %}
