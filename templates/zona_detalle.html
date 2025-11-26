@@ -2,27 +2,35 @@
 {% block title %}{{ zona.nombre }}{% endblock %}
 
 {% block body %}
-<div class="panel">
-  <div class="panel-header">
-    <h1>{{ zona.nombre }}</h1>
-    <div>
-      Usuario: {{ usuario.username }} ({{ usuario.role }}) |
-      <a href="{{ url_for('zonas.index') }}">Volver a zonas</a> |
-      <a href="{{ url_for('auth.logout') }}">Salir</a>
-    </div>
-  </div>
 
-  <div class="panel-card">
-    <h2>Panel de {{ zona.nombre }}</h2>
-    <p>
-      Aquí conectaremos el proyecto específico de esta zona
-      (carpeta correspondiente dentro de <code>/zonas/</code>).
-    </p>
+<h1>{{ zona.nombre }}</h1>
 
-    <p style="margin-top:1rem;">
-      De momento es sólo una página de prueba para comprobar que
-      la navegación de zonas funciona correctamente.
-    </p>
-  </div>
+<div class="panel-box">
+    <a href="{{ url_for('zonas.index') }}" class="btn-back">← Volver a zonas</a>
+    <a href="{{ url_for('auth.logout') }}" class="btn-logout">Salir</a>
 </div>
+
+<iframe src="{{ zona.url }}"
+        class="zona-iframe"
+        frameborder="0"
+        allowfullscreen>
+</iframe>
+
+<style>
+.zona-iframe {
+    width: 100%;
+    height: 85vh;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.15);
+}
+.btn-back, .btn-logout {
+    background:#4b6bff;
+    color:white;
+    padding:8px 16px;
+    border-radius:8px;
+    text-decoration:none;
+    margin-right:10px;
+}
+</style>
+
 {% endblock %}
