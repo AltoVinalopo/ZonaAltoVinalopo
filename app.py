@@ -16,34 +16,36 @@ def create_app():
     db.init_app(app)
     login_manager.init_app(app)
 
-    # Importar aquí para evitar imports circulares
+    # Importar modelos aquí (evita import circular)
     from modelos.user import User
 
-    # === Flask-Login: user_loader OBLIGATORIO ===
+    # === Flask-Login: CARGA DEL USUARIO ===
     @login_manager.user_loader
-    def load_user(user_id: str):
+    def load_user(user_id):
         return User.query.get(int(user_id))
 
-    # Registrar blueprints
+    # === REGISTRO DE BLUEPRINTS ===
     from auth.routes import auth_bp
     from ayuntamientos.routes import aytos_bp
+    from zonas import zonas_bp   # <<--- añadido
 
     app.register_blueprint(auth_bp)
     app.register_blueprint(aytos_bp)
+    app.register_blueprint(zonas_bp)  # <<--- añadido
 
-    # Ruta raíz -> al login (o al panel si ya está logueado)
+    # === RUTA PRINCIPAL ===
     @app.route("/")
     def index():
         return redirect(url_for("auth.login"))
 
-    # Crear tablas + usuario admin si no existe
+    # === CREACIÓN DE TABLAS Y ADMIN ===
     with app.app_context():
         db.create_all()
 
         if not User.query.filter_by(username="admin").first():
             admin = User(
                 username="admin",
-                role="ADMIN_GENERAL",   # este verá TODO
+                role="ADMIN_GENERAL"
             )
             admin.set_password("admin1234")
             db.session.add(admin)
@@ -53,7 +55,7 @@ def create_app():
     return app
 
 
-# Instancia global que usará gunicorn
+# Instancia global usada por gunicorn
 app = create_app()
 
 
