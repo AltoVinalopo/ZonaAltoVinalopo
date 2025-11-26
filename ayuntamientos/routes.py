@@ -3,7 +3,7 @@ from flask import Blueprint, render_template, redirect, url_for
 from flask_login import login_required, current_user
 from modelos import db
 from modelos.ayuntamiento import Ayuntamiento
-from modelos.zona import Zona
+
 
 aytos_bp = Blueprint("aytos", __name__, url_prefix="/ayuntamientos")
 
