@@ -1,5 +1,5 @@
 from datetime import datetime
-from ..app import db
+from app import db
 
 class Iniciativa(db.Model):
     __tablename__ = "iniciativas"
