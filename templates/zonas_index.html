@@ -1,14 +1,23 @@
 {% extends "base.html" %}
-{% block title %}Zonas{% endblock %}
+{% block title %}Zonas y municipios{% endblock %}
 
 {% block body %}
-<h1>Zonas de Coordinación</h1>
+<div class="panel">
+  <div class="panel-header">
+    <h1>Zonas y municipios</h1>
+    <div>
+      Usuario: {{ usuario.username }} ({{ usuario.role }}) |
+      <a href="{{ url_for('auth.logout') }}">Salir</a>
+    </div>
+  </div>
 
-<div class="panel-grid">
-  {% for carpeta in carpetas %}
-    <a class="panel-card" href="{{ url_for('zonas.detalle', carpeta=carpeta) }}">
-      <h2>{{ carpeta }}</h2>
-    </a>
-  {% endfor %}
+  <div class="panel-grid">
+    {% for z in zonas %}
+      <a class="panel-card" href="{{ url_for('zonas.detalle_zona', slug=z.slug) }}">
+        <h2>{{ z.nombre }}</h2>
+        <p>{{ z.descripcion }}</p>
+      </a>
+    {% endfor %}
+  </div>
 </div>
 {% endblock %}
