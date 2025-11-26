@@ -17,7 +17,7 @@ class User(UserMixin, db.Model):
     #  - CONCEJAL -> ve solo su ayuntamiento
     role = db.Column(db.String(40), nullable=False, default="CONCEJAL")
 
-    zona_id = db.Column(db.Integer, db.ForeignKey("zonas.id"), nullable=True)
+    zona_id = db.Column(db.Integer, nullable=True)
     ayuntamiento_id = db.Column(db.Integer, db.ForeignKey("ayuntamientos.id"), nullable=True)
 
     def set_password(self, password: str) -> None:
