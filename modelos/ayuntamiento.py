@@ -1,4 +1,4 @@
-from ..app import db
+from app import db
 
 class Ayuntamiento(db.Model):
     __tablename__ = "ayuntamientos"
