@@ -1,25 +1,40 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+# ayuntamientos/routes.py
+from flask import Blueprint, render_template
 from flask_login import login_required, current_user
-from app import db
-from modelos.roles import ROLES
+from modelos import db
 from modelos.ayuntamiento import Ayuntamiento
+from modelos.zona import Zona
 
 aytos_bp = Blueprint("aytos", __name__)
 
 
-@aytos_bp.route("/ayuntamientos")
+@aytos_bp.route("/panel")
 @login_required
-def lista_ayuntamientos():
-    if current_user.role not in (ROLES["ADMIN_GENERAL"], ROLES["ADMIN_ZONA"]):
-        flash("No tienes permisos para acceder a esta sección", "danger")
-        return redirect(url_for("panel"))
+def panel():
+    """Panel principal filtrando por rol y zona/ayuntamiento del usuario."""
 
-    ayuntamientos = Ayuntamiento.query.all()
-    return render_template("ayuntamientos/lista.html", ayuntamientos=ayuntamientos)
+    if current_user.role == "ADMIN_GENERAL":
+        zonas = Zona.query.order_by(Zona.nombre).all()
+        aytos = Ayuntamiento.query.order_by(Ayuntamiento.nombre).all()
 
+    elif current_user.role == "COORDINADOR_ZONA" and current_user.zona_id:
+        zonas = Zona.query.filter_by(id=current_user.zona_id).all()
+        aytos = Ayuntamiento.query.filter_by(zona_id=current_user.zona_id).order_by(
+            Ayuntamiento.nombre
+        ).all()
 
-@aytos_bp.route("/ayuntamientos/<int:id>")
-@login_required
-def detalle_ayuntamiento(id):
-    ayto = Ayuntamiento.query.get_or_404(id)
-    return render_template("ayuntamientos/detalle.html", ayuntamiento=ayto)
+    else:  # CONCEJAL u otros roles
+        zonas = []
+        if current_user.ayuntamiento_id:
+            ayto = Ayuntamiento.query.get(current_user.ayuntamiento_id)
+            aytos = [ayto] if ayto else []
+        else:
+            aytos = []
+
+    return render_template(
+        "panel.html",
+        zonas=zonas,
+        ayuntamientos=aytos,
+        usuario=current_user,
+    )
+
