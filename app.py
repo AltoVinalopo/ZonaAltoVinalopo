@@ -20,6 +20,10 @@ def create_app():
 
     app.register_blueprint(auth_bp)
     app.register_blueprint(aytos_bp)
+    
+@app.route('/')
+def index():
+    return redirect(url_for('auth.login'))
 
     # Auto-crear BBDD y admin
     with app.app_context():
