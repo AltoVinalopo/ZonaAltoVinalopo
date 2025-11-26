@@ -3,6 +3,8 @@ from flask import Flask, redirect, url_for
 from flask_login import LoginManager
 from config import Config
 from modelos import db
+from zonas import zonas_bp
+app.register_blueprint(zonas_bp)
 
 login_manager = LoginManager()
 login_manager.login_view = "auth.login"   # endpoint del login
