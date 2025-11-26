@@ -1,22 +1,25 @@
-from flask import render_template
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_required, current_user
-from . import aytos_bp
-from ..modelos.roles import ROLES
-from ..modelos.iniciativa import Iniciativa
+from app import db
+from modelos.roles import ROLES
+from modelos.ayuntamiento import Ayuntamiento
 
-def _puede_ver_aytos(user):
-    return user.role in (
-        ROLES["ADMIN_GENERAL"],
-        ROLES["ADMIN_AYUNTAMIENTOS"],
-        ROLES["ADMIN_VISOR"],
-        ROLES["CONCEJAL"],
-    )
+aytos_bp = Blueprint("aytos", __name__)
 
-@aytos_bp.route('/')
+
+@aytos_bp.route("/ayuntamientos")
 @login_required
-def index():
-    user = current_user
-    if not _puede_ver_aytos(user):
-        return "No autorizado", 403
-    ultimas = Iniciativa.query.order_by(Iniciativa.created_at.desc()).limit(20).all()
-    return render_template('ayuntamientos/index.html', iniciativas=ultimas)
+def lista_ayuntamientos():
+    if current_user.role not in (ROLES["ADMIN_GENERAL"], ROLES["ADMIN_ZONA"]):
+        flash("No tienes permisos para acceder a esta sección", "danger")
+        return redirect(url_for("panel"))
+
+    ayuntamientos = Ayuntamiento.query.all()
+    return render_template("ayuntamientos/lista.html", ayuntamientos=ayuntamientos)
+
+
+@aytos_bp.route("/ayuntamientos/<int:id>")
+@login_required
+def detalle_ayuntamiento(id):
+    ayto = Ayuntamiento.query.get_or_404(id)
+    return render_template("ayuntamientos/detalle.html", ayuntamiento=ayto)
