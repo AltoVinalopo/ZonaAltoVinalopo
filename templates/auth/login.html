@@ -1,139 +1,144 @@
 {% extends "base.html" %}
+{% block title %}Login{% endblock %}
 
-{% block head_extra %}
+{% block extra_css %}
 <style>
-    body {
-        margin: 0;
-        padding: 0;
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
 
-        /* Fondo dinámico */
-        background: radial-gradient(circle at center,
-            rgba(180, 255, 200, 0.55) 0%,
-            rgba(190, 255, 210, 0.60) 30%,
-            rgba(220, 255, 230, 0.65) 60%,
-            rgba(240, 255, 245, 1) 100%
-        );
+/* FONDO ANIMADO VERDE VOX */
+body {
+    margin: 0;
+    padding: 0;
+    background: radial-gradient(circle at center,
+                rgba(111, 255, 183, 0.40) 0%,
+                rgba(206, 255, 227, 0.60) 40%,
+                #e8fff1 100%);
+    background-size: 200% 200%;
+    animation: movimientoFondo 6s ease infinite;
+}
 
-        animation: movimientoFondo 8s infinite alternate;
-    }
+@keyframes movimientoFondo {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
 
-    @keyframes movimientoFondo {
-        0% { background-position: 0 0; }
-        100% { background-position: 100px 80px; }
-    }
+/* CONTENEDOR TARJETA */
+.login-card {
+    width: 420px;
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    margin: 80px auto;
+    box-shadow: 0 20px 45px rgba(0,0,0,0.18);
+    border: 1px solid #dcefe2;
+}
 
-    .login-container {
-        background: #ffffffcc;
-        backdrop-filter: blur(20px);
-        border-radius: 28px;
-        padding: 45px 55px;
-        width: 420px;
-        box-shadow: 0 20px 45px rgba(0,0,0,0.15);
-        animation: aparecer 0.8s ease-out;
-    }
+/* TÍTULOS */
+.login-card h1 {
+    font-size: 28px;
+    font-weight: 900;
+    color: #114b2d;
+}
 
-    @keyframes aparecer {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
+.login-card h2 {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 30px;
+}
 
-    h2 {
-        font-size: 28px;
-        font-weight: 800;
-        color: #0A3A0A;
-        margin-bottom: 10px;
-    }
+/* INPUTS */
+.input-group {
+    margin-bottom: 25px;
+}
 
-    .subtitulo {
-        color: #444;
-        font-size: 15px;
-        margin-bottom: 25px;
-    }
+.input-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #1a4d2e;
+}
 
-    .input-group {
-        margin-bottom: 22px;
-        width: 100%;
-    }
+.input-group input {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 2px solid #b6e3c3;
+    outline: none;
+    font-size: 15px;
+    transition: 0.3s;
+}
 
-    .input-group input {
-        width: 100%;
-        padding: 14px 18px;
-        border-radius: 12px;
-        border: 2px solid #b6eeb6;
-        outline: none;
-        font-size: 15px;
-        transition: 0.15s;
-    }
+.input-group input:focus {
+    border-color: #0daa4e;
+    box-shadow: 0px 0px 8px rgba(16, 161, 66, 0.3);
+}
 
-    .input-group input:focus {
-        border-color: #11ac3f;
-        box-shadow: 0 0 10px rgba(17, 172, 63, 0.35);
-    }
+/* ICONO OJO */
+.ojo-pass {
+    position: absolute;
+    right: 20px;
+    top: 43px;
+    cursor: pointer;
+    font-size: 17px;
+    color: #0b6f3b;
+}
 
-    .password-wrapper {
-        position: relative;
-    }
+.input-wrapper {
+    position: relative;
+}
 
-    .toggle-password {
-        position: absolute;
-        right: 14px;
-        top: 50%;
-        transform: translateY(-50%);
-        cursor: pointer;
-        color: #0e6f0e;
-        font-size: 18px;
-    }
+/* BOTÓN ACCEDER */
+.btn-acceder {
+    width: 100%;
+    background: #0daa4e;
+    padding: 14px;
+    border-radius: 12px;
+    border: none;
+    font-size: 17px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: .25s;
+}
 
-    .btn-acceder {
-        width: 100%;
-        padding: 15px;
-        font-size: 18px;
-        font-weight: 700;
-        background: linear-gradient(90deg, #11ac3f, #0f7f32);
-        color: white;
-        border: none;
-        border-radius: 40px;
-        cursor: pointer;
-        transition: 0.25s;
-    }
+.btn-acceder:hover {
+    background: #0bbd56;
+    transform: scale(1.03);
+    box-shadow: 0px 8px 18px rgba(0,150,60,0.3);
+}
 
-    .btn-acceder:hover {
-        transform: scale(1.03);
-        box-shadow: 0 8px 20px rgba(16, 121, 49, 0.35);
-    }
 </style>
 {% endblock %}
 
 {% block body %}
-<div class="login-container">
-    <h2>Organización Alicante</h2>
-    <div class="subtitulo">Acceso restringido</div>
+<div class="login-card">
+
+    <h1>Organización Alicante</h1>
+    <h2>Acceso restringido</h2>
 
     <form method="POST">
+
         <div class="input-group">
             <label>Usuario</label>
-            <input type="text" name="username" required>
+            <input type="text" name="username">
         </div>
 
-        <div class="input-group password-wrapper">
+        <div class="input-group input-wrapper">
             <label>Contraseña</label>
-            <input type="password" id="password" name="password" required>
-            <span class="toggle-password" onclick="togglePassword()">👁️</span>
+            <input type="password" id="password" name="password">
+            <span class="ojo-pass" onclick="togglePass()">👁</span>
         </div>
 
         <button class="btn-acceder" type="submit">ACCEDER</button>
+
     </form>
 </div>
 
 <script>
-function togglePassword() {
-    const pass = document.getElementById("password");
-    pass.type = pass.type === "password" ? "text" : "password";
+function togglePass() {
+    let campo = document.getElementById("password");
+    campo.type = campo.type === "password" ? "text" : "password";
 }
 </script>
 {% endblock %}
-
