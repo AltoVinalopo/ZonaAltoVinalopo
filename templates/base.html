@@ -1,36 +1,415 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <title>{% block title %}Panel de coordinación{% endblock %}</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <meta charset="utf-8">
+    <title>{% block title %}Coordinación{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {# Si ya usas main.css, lo mantenemos #}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+
+    <style>
+        /* ---------- FONDO GENERAL ANIMADO VERDE VOX ---------- */
+        body {
+            margin: 0;
+            padding: 40px 20px;
+            min-height: 100vh;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            color: #13301f;
+            background:
+                radial-gradient(circle at 0% 0%, rgba(0, 200, 83, 0.28), transparent 50%),
+                radial-gradient(circle at 100% 100%, rgba(0, 150, 60, 0.25), transparent 55%),
+                radial-gradient(circle at 30% 80%, rgba(0, 220, 100, 0.22), transparent 55%),
+                #e9fff3;
+            background-size: 200% 200%;
+            animation: bg-move 18s ease-in-out infinite;
+        }
+
+        @keyframes bg-move {
+            0%   { background-position: 0% 0%, 100% 100%, 30% 80%; }
+            50%  { background-position: 100% 0%, 0% 100%, 70% 40%; }
+            100% { background-position: 0% 0%, 100% 100%, 30% 80%; }
+        }
+
+        /* Permite que algunas páginas (login) cambien comportamiento */
+        body.is-login {
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* ---------- CONTENEDOR PRINCIPAL 3D ---------- */
+        .app-wrapper {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.86);
+            border-radius: 32px;
+            box-shadow:
+                0 22px 65px rgba(0, 0, 0, 0.22),
+                0 0 0 1px rgba(170, 215, 190, 0.75);
+            backdrop-filter: blur(18px);
+            padding: 26px 32px 36px;
+            box-sizing: border-box;
+        }
+
+        body.is-login .app-wrapper {
+            max-width: 480px;
+            padding: 30px 28px 34px;
+        }
+
+        /* ---------- CABECERA ---------- */
+        .app-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+
+        .header-title {
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: 0.03em;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-pill {
+            padding: 7px 16px;
+            border-radius: 999px;
+            background: #283444;
+            color: #f5faff;
+            font-size: 13px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+        }
+
+        body.is-login .app-header {
+            display: none;   /* El login no muestra la cabecera */
+        }
+
+        .app-main {
+            margin-top: 8px;
+        }
+
+        /* ---------- BOTONES GENÉRICOS ---------- */
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 9px 18px;
+            border-radius: 999px;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all .22s ease;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: #0caa4e;
+            color: #ffffff;
+            box-shadow: 0 10px 24px rgba(0, 150, 70, 0.50);
+        }
+
+        .btn-primary:hover {
+            background: #0cc55a;
+            transform: translateY(-1px);
+            box-shadow: 0 14px 32px rgba(0, 150, 70, 0.65);
+        }
+
+        .btn-outline {
+            border: 1px solid #0caa4e;
+            color: #0c7036;
+            background: rgba(255, 255, 255, 0.85);
+        }
+
+        .btn-outline:hover {
+            background: rgba(12, 170, 78, 0.07);
+            box-shadow: 0 8px 18px rgba(0, 100, 50, 0.25);
+        }
+
+        .btn-light {
+            background: #f7fafc;
+            color: #203243;
+            border: 1px solid rgba(195, 210, 220, 0.9);
+        }
+
+        .btn-light:hover {
+            background: #ffffff;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
+        }
+
+        /* ---------- TARJETAS DEL PANEL ---------- */
+
+        .panel-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        @media (max-width: 900px) {
+            .panel-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .panel-card {
+            display: block;
+            padding: 28px 32px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, #f4fff8, #e9fff3);
+            border: 1px solid rgba(176, 221, 195, 0.9);
+            box-shadow:
+                0 16px 40px rgba(14, 93, 55, 0.25),
+                0 0 0 1px rgba(180, 230, 204, 0.7);
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+            overflow: hidden;
+            transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+        }
+
+        .panel-card::after {
+            content: "";
+            position: absolute;
+            inset: -40%;
+            background: radial-gradient(circle at 0 0, rgba(12, 170, 78, 0.18), transparent 60%);
+            opacity: 0;
+            transform: translate3d(-15px, -15px, 0);
+            transition: opacity .3s ease, transform .3s ease;
+        }
+
+        .panel-card:hover {
+            transform: translateY(-6px);
+            box-shadow:
+                0 26px 60px rgba(0, 0, 0, 0.30),
+                0 0 0 1px rgba(12, 170, 78, 0.55);
+            border-color: rgba(12, 170, 78, 0.70);
+        }
+
+        .panel-card:hover::after {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+        }
+
+        .panel-card-title {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .panel-card-subtitle {
+            margin-bottom: 20px;
+            color: #325241;
+        }
+
+        .panel-card-link {
+            font-weight: 700;
+            color: #0a9250;
+            text-decoration: none;
+        }
+
+        .panel-card-link:hover {
+            text-decoration: underline;
+        }
+
+        /* ---------- TARJETAS DE ZONAS ---------- */
+
+        .zones-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        @media (max-width: 1100px) {
+            .zones-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 680px) {
+            .zones-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .zone-card {
+            display: block;
+            padding: 20px 22px;
+            border-radius: 22px;
+            background: #f4fff8;
+            border: 1px solid rgba(176, 221, 195, 0.9);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+            text-decoration: none;
+            color: inherit;
+            transition: all .22s ease;
+        }
+
+        .zone-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.26);
+            border-color: rgba(12, 170, 78, 0.75);
+        }
+
+        .zone-title {
+            font-weight: 800;
+            margin-bottom: 6px;
+            font-size: 18px;
+        }
+
+        .zone-desc {
+            font-size: 14px;
+            color: #385545;
+            margin-bottom: 10px;
+        }
+
+        .zone-link {
+            font-size: 14px;
+            font-weight: 700;
+            color: #0a9250;
+        }
+
+        /* ---------- TARJETA DETALLE ZONA ---------- */
+
+        .zone-detail-card {
+            padding: 26px 26px 30px;
+            border-radius: 24px;
+            background: #f4fff8;
+            border: 1px solid rgba(176, 221, 195, 0.9);
+            box-shadow: 0 16px 42px rgba(0, 0, 0, 0.22);
+        }
+
+        .zone-detail-title {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .zone-detail-desc {
+            color: #324c3b;
+            margin-bottom: 22px;
+        }
+
+        .zone-detail-btn {
+            width: 100%;
+            justify-content: center;
+            font-size: 15px;
+            padding: 13px;
+        }
+
+        /* ---------- LOGIN CARD ---------- */
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.96);
+            border-radius: 24px;
+            padding: 26px 26px 30px;
+            box-shadow:
+                0 24px 60px rgba(0, 0, 0, 0.25),
+                0 0 0 1px rgba(180, 230, 204, 0.7);
+        }
+
+        .login-title {
+            font-size: 24px;
+            font-weight: 900;
+            margin-bottom: 4px;
+            color: #114b2d;
+        }
+
+        .login-subtitle {
+            font-size: 14px;
+            color: #445e52;
+            margin-bottom: 26px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #214130;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 11px 13px;
+            border-radius: 11px;
+            border: 2px solid #b6e3c3;
+            font-size: 15px;
+            outline: none;
+            transition: all .2s ease;
+            box-sizing: border-box;
+        }
+
+        .form-control:focus {
+            border-color: #0caa4e;
+            box-shadow: 0 0 0 1px rgba(12, 170, 78, 0.35),
+                        0 0 10px rgba(12, 170, 78, 0.4);
+        }
+
+        .form-control-wrapper {
+            position: relative;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 17px;
+            color: #0c7036;
+        }
+
+        .btn-login {
+            width: 100%;
+            margin-top: 6px;
+            font-size: 15px;
+            padding: 13px;
+        }
+
+    </style>
+
+    {% block extra_css %}{% endblock %}
 </head>
-<body class="app-body">
-  <div class="app-shell">
+<body class="{% block body_class %}{% endblock %}">
+
+<div class="app-wrapper">
+
     <header class="app-header">
-      <div class="app-title-main">
-        {% block header_title %}Panel de coordinación{% endblock %}
-      </div>
+        <div class="header-title">
+            {% block header_title %}Panel de coordinación{% endblock %}
+        </div>
 
-      {% if usuario %}
-      <div class="app-header-right">
-        <span class="badge-user">
-          {{ usuario.username }} ({{ usuario.role }})
-        </span>
-
-        {% block header_actions %}{% endblock %}
-
-        <a href="{{ url_for('auth.logout') }}" class="btn btn-ghost">
-          Salir
-        </a>
-      </div>
-      {% endif %}
+        <div class="header-actions">
+            {% block header_actions %}{% endblock %}
+            {% if current_user.is_authenticated %}
+                <span class="user-pill">
+                    {{ current_user.username }}
+                    {% if current_user.role %} ({{ current_user.role }}){% endif %}
+                </span>
+            {% endif %}
+        </div>
     </header>
 
     <main class="app-main">
-      {% block body %}{% endblock %}
+        {% block body %}{% endblock %}
     </main>
-  </div>
+
+</div>
+
+{% block extra_js %}{% endblock %}
 </body>
 </html>
