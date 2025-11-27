@@ -374,3 +374,22 @@ body {
     max-width: 100%;
   }
 }
+body::before {
+    content: "";
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 900px;
+    height: 900px;
+    background: radial-gradient(circle, rgba(57,169,53,0.35) 0%, rgba(57,169,53,0.05) 70%, transparent 100%);
+    filter: blur(80px);
+    transform: translate(-50%, -50%) scale(1);
+    animation: floatGlow 12s ease-in-out infinite;
+    z-index: -1;
+}
+
+@keyframes floatGlow {
+    0%   { transform: translate(-50%, -52%) scale(1); }
+    50%  { transform: translate(-48%, -48%) scale(1.15); }
+    100% { transform: translate(-50%, -52%) scale(1); }
+}
