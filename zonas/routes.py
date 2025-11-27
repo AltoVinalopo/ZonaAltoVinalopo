@@ -2,8 +2,8 @@
 from flask import render_template, abort
 from flask_login import login_required, current_user
 
-from . import zonas_bp
 from modelos.zona import Zona
+from . import zonas_bp
 
 
 @zonas_bp.route("/")
@@ -22,14 +22,14 @@ def index():
 
 @zonas_bp.route("/<int:zona_id>/")
 @login_required
-def detalle(zona_id: int):
+def detalle_zona(zona_id: int):
     """
     Detalle de una zona concreta.
-    En la vista mostramos la web propia de esa zona embebida en un iframe.
+    Aquí mostramos un botón grande que abre el proyecto
+    externo de esa zona (campo Zona.url).
     """
-    zona = Zona.query.get_or_404(zona_id)
-
-    if not zona.url:
+    zona = Zona.query.get(zona_id)
+    if not zona:
         abort(404)
 
     return render_template(
@@ -37,3 +37,4 @@ def detalle(zona_id: int):
         usuario=current_user,
         zona=zona,
     )
+
