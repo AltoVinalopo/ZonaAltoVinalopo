@@ -1,21 +1,34 @@
 {% extends "base.html" %}
+
+{% block title %}Panel de coordinación{% endblock %}
+{% block header_title %}Panel de coordinación{% endblock %}
+
 {% block body %}
+  <section class="glass-wrapper">
+    <div class="cards-row">
+      <!-- Card ZONAS -->
+      <a class="panel-card" href="{{ url_for('zonas.index') }}">
+        <h2 class="panel-title">Zonas y municipios</h2>
+        <p class="panel-subtitle">
+          Coordinación territorial por zonas.
+        </p>
+        <div class="panel-link">
+          <span>Entrar en zonas</span>
+          <span>→</span>
+        </div>
+      </a>
 
-<div class="top-buttons">
-    <span class="btn-small">{{ usuario.username }} ({{ usuario.role }})</span>
-    <a class="btn-small" href="/auth/logout">Salir</a>
-</div>
-
-<div class="card-panel">
-    <h2>Zonas y municipios</h2>
-    <p>Coordinación territorial por zonas.</p>
-    <a class="btn-green" href="/zonas/">Entrar en zonas →</a>
-</div>
-
-<div class="card-panel">
-    <h2>Ayuntamientos</h2>
-    <p>Buscador municipal y carga de iniciativas.</p>
-    <a class="btn-green" href="/ayuntamientos/">Abrir gestión de ayuntamientos →</a>
-</div>
-
+      <!-- Card AYUNTAMIENTOS -->
+      <a class="panel-card" href="{{ url_for('aytos.panel') }}">
+        <h2 class="panel-title">Ayuntamientos</h2>
+        <p class="panel-subtitle">
+          Buscador municipal y carga de iniciativas.
+        </p>
+        <div class="panel-link">
+          <span>Abrir gestión de ayuntamientos</span>
+          <span>→</span>
+        </div>
+      </a>
+    </div>
+  </section>
 {% endblock %}
