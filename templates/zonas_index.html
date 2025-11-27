@@ -1,4 +1,8 @@
 {% extends "base.html" %}
+{% block header_actions %}
+    <a href="{{ url_for('panel') }}" class="btn btn-outline">Volver al panel</a>
+    <a href="{{ url_for('auth.logout') }}" class="btn btn-danger">Salir</a>
+{% endblock %}
 
 {% block title %}Zonas y municipios{% endblock %}
 {% block header_title %}Zonas y municipios{% endblock %}
