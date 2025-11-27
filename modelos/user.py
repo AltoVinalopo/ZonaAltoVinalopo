@@ -11,10 +11,10 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(80), unique=True, nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
 
-    # Roles posibles:
-    #  - ADMIN_GENERAL  -> ve todas las zonas y todos los ayuntamientos
-    #  - COORDINADOR_ZONA -> ve solo su zona y sus ayuntamientos
-    #  - CONCEJAL -> ve solo su ayuntamiento
+    # Roles:
+    #  - ADMIN_GENERAL
+    #  - COORDINADOR_ZONA
+    #  - CONCEJAL
     role = db.Column(db.String(40), nullable=False, default="CONCEJAL")
 
     zona_id = db.Column(db.Integer, nullable=True)
@@ -27,5 +27,5 @@ class User(UserMixin, db.Model):
         return check_password_hash(self.password_hash, password)
 
     def has_role(self, *roles) -> bool:
-        """Comprueba si tiene alguno de los roles pasados."""
         return self.role in roles
+
