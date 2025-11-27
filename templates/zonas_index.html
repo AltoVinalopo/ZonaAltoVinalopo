@@ -1,32 +1,29 @@
 {% extends "base.html" %}
+
 {% block title %}Zonas y municipios{% endblock %}
+{% block header_title %}Zonas y municipios{% endblock %}
 
-{% block header_title %}
-<h1>Zonas y municipios</h1>
-{% endblock %}
-
-{% block header_buttons %}
-<a class="btn-outline" href="{{ url_for('ayuntamientos.panel') }}">Volver al panel</a>
+{% block header_actions %}
+  <a href="{{ url_for('aytos.panel') }}" class="btn btn-outline">
+    Volver al panel
+  </a>
 {% endblock %}
 
 {% block body %}
-<div class="panel-grid">
-  {% for zona in zonas %}
-    <a class="panel-card" href="{{ url_for('zonas.detalle_zona', zona_id=zona.id) }}">
-      <h2>{{ zona.nombre }}</h2>
-      <p>
-        {% if zona.id == 1 %}Municipios del área de l'Alacantí.{% endif %}
-        {% if zona.id == 2 %}Coordinación de la zona Alto Vinalopó.{% endif %}
-        {% if zona.id == 3 %}Coordinación de la zona Bajo Vinalopó.{% endif %}
-        {% if zona.id == 4 %}Coordinación de la zona Alcoià / Comtat.{% endif %}
-        {% if zona.id == 5 %}Coordinación de la zona Marina Alta.{% endif %}
-        {% if zona.id == 6 %}Coordinación de la zona Marina Baixa.{% endif %}
-        {% if zona.id == 7 %}Coordinación de la zona de Elche.{% endif %}
-        {% if zona.id == 8 %}Coordinación de la Vega Baja.{% endif %}
-      </p>
-      <span class="card-link">Abrir panel de la zona →</span>
-    </a>
-  {% endfor %}
-</div>
+  <section class="glass-wrapper">
+    <div class="zone-grid">
+      {% for zona in zonas %}
+      <a class="zone-card" href="{{ url_for('zonas.detalle_zona', slug=zona.slug) }}">
+        <h2 class="zone-name">{{ zona.nombre }}</h2>
+        <p class="zone-desc">{{ zona.descripcion }}</p>
+        <div class="panel-link">
+          <span>Abrir panel de la zona</span>
+          <span>→</span>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
 {% endblock %}
+
 
