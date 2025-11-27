@@ -1,8 +1,21 @@
 {% extends "base.html" %}
-{% block title %}Zonas{% endblock %}
 {% block body %}
-<div class="content">
-  <h1>Zonas de coordinación</h1>
-  <p>Aquí integraremos las 8 zonas (Alacantí, Alto Vinalopó, etc.) clonadas de tu proyecto.</p>
+
+<div class="top-buttons">
+    <a class="btn-small" href="/ayuntamientos/panel">Volver al panel</a>
+    <a class="btn-small" href="/auth/logout">Salir</a>
 </div>
+
+<h1>Zonas y municipios</h1>
+
+<div class="zonas-grid">
+    {% for z in zonas %}
+    <div class="zona-card">
+        <h3>{{ z.nombre }}</h3>
+        <p>{{ z.descripcion }}</p>
+        <a class="btn-green" href="/zonas/{{ z.slug }}/">Abrir panel de la zona →</a>
+    </div>
+    {% endfor %}
+</div>
+
 {% endblock %}
