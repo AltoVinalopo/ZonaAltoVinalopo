@@ -19,22 +19,10 @@ def index():
         zonas=zonas,
     )
 
-
 @zonas_bp.route("/<int:zona_id>/")
 @login_required
-def detalle_zona(zona_id: int):
-    """
-    Detalle de una zona concreta.
-    Aquí mostramos un botón grande que abre el proyecto
-    externo de esa zona (campo Zona.url).
-    """
-    zona = Zona.query.get(zona_id)
-    if not zona:
-        abort(404)
+def zona_detalle(zona_id):
+    zona = Zona.query.get_or_404(zona_id)
+    return render_template("zona_detalle.html", zona=zona)
 
-    return render_template(
-        "zona_detalle.html",
-        usuario=current_user,
-        zona=zona,
-    )
 
