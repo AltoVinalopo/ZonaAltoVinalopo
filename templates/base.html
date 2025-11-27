@@ -1,31 +1,36 @@
 <!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="utf-8">
-    <title>{% block title %}Coordinación{% endblock %}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-  </head>
-  <body class="app-body">
-    <div class="app-wrapper">
-      <header class="app-header">
-        <div class="app-header-left">
-          {% block header_title %}{% endblock %}
-        </div>
-        <div class="app-header-right">
-          {% if current_user.is_authenticated %}
-            <span class="user-chip">
-              {{ current_user.username }} ({{ current_user.role }})
-            </span>
-            {% block header_buttons %}{% endblock %}
-            <a class="btn-outline" href="{{ url_for('auth.logout') }}">Salir</a>
-          {% endif %}
-        </div>
-      </header>
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Panel de coordinación{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body class="app-body">
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="app-title-main">
+        {% block header_title %}Panel de coordinación{% endblock %}
+      </div>
 
-      <main class="app-main">
-        {% block body %}{% endblock %}
-      </main>
-    </div>
-  </body>
+      {% if usuario %}
+      <div class="app-header-right">
+        <span class="badge-user">
+          {{ usuario.username }} ({{ usuario.role }})
+        </span>
+
+        {% block header_actions %}{% endblock %}
+
+        <a href="{{ url_for('auth.logout') }}" class="btn btn-ghost">
+          Salir
+        </a>
+      </div>
+      {% endif %}
+    </header>
+
+    <main class="app-main">
+      {% block body %}{% endblock %}
+    </main>
+  </div>
+</body>
 </html>
