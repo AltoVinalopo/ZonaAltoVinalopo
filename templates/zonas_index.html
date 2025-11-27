@@ -2,22 +2,30 @@
 {% block title %}Zonas y municipios{% endblock %}
 
 {% block body %}
-<div class="panel">
-  <div class="panel-header">
-    <h1>Zonas y municipios</h1>
+<div class="page">
+  <header class="page-header">
     <div>
-      Usuario: {{ usuario.username }} ({{ usuario.role }}) |
-      <a href="{{ url_for('auth.logout') }}">Salir</a>
+      <div class="page-title-sub">Coordinación territorial</div>
+      <h1>Zonas y municipios</h1>
+      <p class="text-muted">
+        Selecciona una zona para abrir su herramienta de coordinación.
+      </p>
     </div>
-  </div>
+    <div class="page-actions">
+      <a href="{{ url_for('aytos.panel') }}" class="btn btn-outline">← Volver al panel</a>
+      <a href="{{ url_for('auth.logout') }}" class="btn btn-secondary">⏏ Salir</a>
+    </div>
+  </header>
 
-  <div class="panel-grid">
-    {% for z in zonas %}
-      <a class="panel-card" href="{{ url_for('zonas.detalle_zona', slug=z.slug) }}">
+  <section>
+    <div class="card-grid">
+      {% for z in zonas %}
+      <a class="card-tile" href="{{ url_for('zonas.detalle', zona_id=z.id) }}">
         <h2>{{ z.nombre }}</h2>
-        <p>{{ z.descripcion }}</p>
+        <p>{{ z.url or "Zona sin URL definida" }}</p>
       </a>
-    {% endfor %}
-  </div>
+      {% endfor %}
+    </div>
+  </section>
 </div>
 {% endblock %}
