@@ -1,31 +1,32 @@
 {% extends "base.html" %}
 {% block title %}Zonas y municipios{% endblock %}
 
-{% block body %}
-<div class="page">
-  <header class="page-header">
-    <div>
-      <div class="page-title-sub">Coordinación territorial</div>
-      <h1>Zonas y municipios</h1>
-      <p class="text-muted">
-        Selecciona una zona para abrir su herramienta de coordinación.
-      </p>
-    </div>
-    <div class="page-actions">
-      <a href="{{ url_for('aytos.panel') }}" class="btn btn-outline">← Volver al panel</a>
-      <a href="{{ url_for('auth.logout') }}" class="btn btn-secondary">⏏ Salir</a>
-    </div>
-  </header>
+{% block header_title %}
+<h1>Zonas y municipios</h1>
+{% endblock %}
 
-  <section>
-    <div class="card-grid">
-      {% for z in zonas %}
-      <a class="card-tile" href="{{ url_for('zonas.detalle', zona_id=z.id) }}">
-        <h2>{{ z.nombre }}</h2>
-        <p>{{ z.url or "Zona sin URL definida" }}</p>
-      </a>
-      {% endfor %}
-    </div>
-  </section>
+{% block header_buttons %}
+<a class="btn-outline" href="{{ url_for('ayuntamientos.panel') }}">Volver al panel</a>
+{% endblock %}
+
+{% block body %}
+<div class="panel-grid">
+  {% for zona in zonas %}
+    <a class="panel-card" href="{{ url_for('zonas.detalle_zona', zona_id=zona.id) }}">
+      <h2>{{ zona.nombre }}</h2>
+      <p>
+        {% if zona.id == 1 %}Municipios del área de l'Alacantí.{% endif %}
+        {% if zona.id == 2 %}Coordinación de la zona Alto Vinalopó.{% endif %}
+        {% if zona.id == 3 %}Coordinación de la zona Bajo Vinalopó.{% endif %}
+        {% if zona.id == 4 %}Coordinación de la zona Alcoià / Comtat.{% endif %}
+        {% if zona.id == 5 %}Coordinación de la zona Marina Alta.{% endif %}
+        {% if zona.id == 6 %}Coordinación de la zona Marina Baixa.{% endif %}
+        {% if zona.id == 7 %}Coordinación de la zona de Elche.{% endif %}
+        {% if zona.id == 8 %}Coordinación de la Vega Baja.{% endif %}
+      </p>
+      <span class="card-link">Abrir panel de la zona →</span>
+    </a>
+  {% endfor %}
 </div>
 {% endblock %}
+
