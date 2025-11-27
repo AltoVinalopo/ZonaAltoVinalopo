@@ -1,29 +1,30 @@
 {% extends "base.html" %}
 {% block title %}{{ zona.nombre }}{% endblock %}
 
-{% block body %}
-<div class="page">
-  <header class="page-header">
-    <div>
-      <div class="page-title-sub">Zona de coordinación</div>
-      <h1>{{ zona.nombre }}</h1>
-      <p class="text-muted">
-        Esta zona se gestiona en su propia herramienta específica.
-      </p>
-    </div>
-    <div class="page-actions">
-      <a href="{{ url_for('zonas.index') }}" class="btn btn-secondary">← Volver a zonas</a>
-      <a href="{{ url_for('aytos.panel') }}" class="btn btn-outline">🏠 Panel principal</a>
-      <a href="{{ zona.url }}" target="_blank" rel="noopener" class="btn btn-primary">
-        🌐 Abrir en nueva pestaña
-      </a>
-    </div>
-  </header>
+{% block header_title %}
+<h1>{{ zona.nombre }}</h1>
+{% endblock %}
 
-  <section>
-    <div class="frame-wrapper">
-      <iframe src="{{ zona.url }}" loading="lazy"></iframe>
-    </div>
-  </section>
+{% block header_buttons %}
+<a class="btn-outline" href="{{ url_for('zonas.index') }}">Volver a zonas</a>
+{% endblock %}
+
+{% block body %}
+<div class="zone-panel">
+  <div class="panel-card panel-card-full">
+    <h2>Panel de {{ zona.nombre }}</h2>
+    <p>
+      Esta zona tiene su propio panel de coordinación.
+      Pulsa el botón para abrir el proyecto completo en una nueva pestaña.
+    </p>
+
+    {% if zona.url %}
+      <a class="btn-primary" href="{{ zona.url }}" target="_blank" rel="noopener">
+        Abrir panel de {{ zona.nombre }}
+      </a>
+    {% else %}
+      <p><em>No se ha configurado aún la URL de esta zona.</em></p>
+    {% endif %}
+  </div>
 </div>
 {% endblock %}
