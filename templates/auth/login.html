@@ -1,146 +1,139 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acceso · Organización Alicante</title>
+{% extends "base.html" %}
 
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #e9fff0, #d8ffe3);
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
+{% block head_extra %}
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
-        /* Fondo animado VOX */
-        .glow-bg {
-            position: absolute;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(0,180,60,0.35), rgba(0,180,60,0));
-            filter: blur(60px);
-            animation: moveGlow 6s infinite alternate;
-        }
+        /* Fondo dinámico */
+        background: radial-gradient(circle at center,
+            rgba(180, 255, 200, 0.55) 0%,
+            rgba(190, 255, 210, 0.60) 30%,
+            rgba(220, 255, 230, 0.65) 60%,
+            rgba(240, 255, 245, 1) 100%
+        );
 
-        @keyframes moveGlow {
-            0% { transform: translate(-150px, -100px); }
-            100% { transform: translate(150px, 120px); }
-        }
+        animation: movimientoFondo 8s infinite alternate;
+    }
 
-        /* Card de login */
-        .login-card {
-            position: relative;
-            width: 420px;
-            background: white;
-            border-radius: 18px;
-            padding: 30px 35px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-            animation: fadeIn 0.6s ease-out;
-        }
+    @keyframes movimientoFondo {
+        0% { background-position: 0 0; }
+        100% { background-position: 100px 80px; }
+    }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
+    .login-container {
+        background: #ffffffcc;
+        backdrop-filter: blur(20px);
+        border-radius: 28px;
+        padding: 45px 55px;
+        width: 420px;
+        box-shadow: 0 20px 45px rgba(0,0,0,0.15);
+        animation: aparecer 0.8s ease-out;
+    }
 
-        h2 {
-            margin-top: 0;
-            font-size: 26px;
-            font-weight: 700;
-            color: #0a2a12;
-        }
+    @keyframes aparecer {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
 
-        label {
-            font-size: 14px;
-            font-weight: 600;
-            color: #0a2a12;
-        }
+    h2 {
+        font-size: 28px;
+        font-weight: 800;
+        color: #0A3A0A;
+        margin-bottom: 10px;
+    }
 
-        input {
-            width: 100%;
-            padding: 12px 14px;
-            margin-top: 5px;
-            margin-bottom: 18px;
-            border-radius: 10px;
-            border: 1px solid #c7e6d1;
-            background: #f8fffa;
-            font-size: 15px;
-            outline: none;
-            transition: 0.2s;
-        }
+    .subtitulo {
+        color: #444;
+        font-size: 15px;
+        margin-bottom: 25px;
+    }
 
-        input:focus {
-            border-color: #00a23a;
-            box-shadow: 0 0 6px rgba(0,160,60,0.4);
-        }
+    .input-group {
+        margin-bottom: 22px;
+        width: 100%;
+    }
 
-        .password-box {
-            position: relative;
-        }
+    .input-group input {
+        width: 100%;
+        padding: 14px 18px;
+        border-radius: 12px;
+        border: 2px solid #b6eeb6;
+        outline: none;
+        font-size: 15px;
+        transition: 0.15s;
+    }
 
-        .toggle-pass {
-            position: absolute;
-            right: 15px;
-            top: 40%;
-            cursor: pointer;
-            font-size: 14px;
-            color: #444;
-        }
+    .input-group input:focus {
+        border-color: #11ac3f;
+        box-shadow: 0 0 10px rgba(17, 172, 63, 0.35);
+    }
 
-        button {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(90deg, #00a83a, #00912f);
-            color: white;
-            font-size: 17px;
-            font-weight: bold;
-            border: none;
-            border-radius: 40px;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: 0.25s;
-        }
+    .password-wrapper {
+        position: relative;
+    }
 
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0,160,60,0.5);
-        }
-    </style>
-</head>
+    .toggle-password {
+        position: absolute;
+        right: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #0e6f0e;
+        font-size: 18px;
+    }
 
-<body>
+    .btn-acceder {
+        width: 100%;
+        padding: 15px;
+        font-size: 18px;
+        font-weight: 700;
+        background: linear-gradient(90deg, #11ac3f, #0f7f32);
+        color: white;
+        border: none;
+        border-radius: 40px;
+        cursor: pointer;
+        transition: 0.25s;
+    }
 
-    <div class="glow-bg"></div>
+    .btn-acceder:hover {
+        transform: scale(1.03);
+        box-shadow: 0 8px 20px rgba(16, 121, 49, 0.35);
+    }
+</style>
+{% endblock %}
 
-    <form class="login-card" method="POST" action="/auth/login">
-        <h2>Organización Alicante</h2>
-        <p style="margin-top:-10px; color:#4a6f54;">Acceso restringido</p>
+{% block body %}
+<div class="login-container">
+    <h2>Organización Alicante</h2>
+    <div class="subtitulo">Acceso restringido</div>
 
-        <label>Usuario</label>
-        <input type="text" name="username" required autocomplete="off">
-
-        <label>Contraseña</label>
-        <div class="password-box">
-            <input type="password" id="pass" name="password" required>
-            <span class="toggle-pass" onclick="togglePass()">👁</span>
+    <form method="POST">
+        <div class="input-group">
+            <label>Usuario</label>
+            <input type="text" name="username" required>
         </div>
 
-        <button type="submit">ACCEDER</button>
+        <div class="input-group password-wrapper">
+            <label>Contraseña</label>
+            <input type="password" id="password" name="password" required>
+            <span class="toggle-password" onclick="togglePassword()">👁️</span>
+        </div>
+
+        <button class="btn-acceder" type="submit">ACCEDER</button>
     </form>
+</div>
 
-    <script>
-        function togglePass() {
-            const field = document.getElementById("pass");
-            field.type = field.type === "password" ? "text" : "password";
-        }
-    </script>
-
-</body>
-</html>
-
+<script>
+function togglePassword() {
+    const pass = document.getElementById("password");
+    pass.type = pass.type === "password" ? "text" : "password";
+}
+</script>
+{% endblock %}
 
