@@ -7,4 +7,4 @@ class Zona(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(120), nullable=False)
-    url = db.Column(db.String(255), nullable=True)
+    url = db.Column(db.String(255), nullable=True)  # enlace externo al proyecto de la zona
