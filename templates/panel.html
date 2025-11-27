@@ -1,37 +1,23 @@
 {% extends "base.html" %}
-{% block title %}Panel{% endblock %}
+{% block title %}Panel de coordinación{% endblock %}
+
+{% block header_title %}
+<h1>Panel de coordinación</h1>
+{% endblock %}
 
 {% block body %}
-<div class="page">
-  <header class="page-header">
-    <div>
-      <div class="page-title-sub">Panel de coordinación</div>
-      <h1>Hola, {{ usuario.username }}</h1>
-      <p class="text-muted">
-        Rol: {{ usuario.role }} · Usa las tarjetas para acceder a cada módulo.
-      </p>
-    </div>
-    <div class="page-actions">
-      <a href="{{ url_for('auth.logout') }}" class="btn btn-outline">⏏ Cerrar sesión</a>
-    </div>
-  </header>
+<div class="panel-grid">
+  <a class="panel-card" href="{{ url_for('zonas.index') }}">
+    <h2>Zonas y municipios</h2>
+    <p>Coordinación territorial por zonas.</p>
+    <span class="card-link">Entrar en zonas →</span>
+  </a>
 
-  <section>
-    <div class="card-grid">
-      {% if usuario.role in [ROLES.ADMIN_GENERAL, ROLES.ADMIN_VISOR, ROLES.COORDINADOR] %}
-      <a class="card-tile" href="{{ url_for('zonas.index') }}">
-        <h2>Zonas y municipios</h2>
-        <p>Coordinación territorial por zonas, con acceso a cada proyecto.</p>
-      </a>
-      {% endif %}
-
-      {% if usuario.role in [ROLES.ADMIN_GENERAL, ROLES.ADMIN_VISOR, ROLES.ADMIN_AYUNTAMIENTOS, ROLES.CONCEJAL] %}
-      <a class="card-tile" href="{{ url_for('aytos.panel') }}">
-        <h2>Ayuntamientos</h2>
-        <p>Buscador de iniciativas y panel de carga para administración.</p>
-      </a>
-      {% endif %}
-    </div>
-  </section>
+  <a class="panel-card" href="https://plenos.onrender.com/" target="_blank" rel="noopener">
+    <h2>Ayuntamientos</h2>
+    <p>Buscador municipal y carga de iniciativas.</p>
+    <span class="card-link">Abrir gestión de ayuntamientos →</span>
+  </a>
 </div>
 {% endblock %}
+
