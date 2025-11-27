@@ -1,5 +1,7 @@
+# modelos/iniciativa.py
 from datetime import datetime
-from app import db
+from modelos import db
+
 
 class Iniciativa(db.Model):
     __tablename__ = "iniciativas"
@@ -11,5 +13,10 @@ class Iniciativa(db.Model):
     pdf_path = db.Column(db.String(255), nullable=True)
     concejal_nombre = db.Column(db.String(120), nullable=True)
 
-    ayuntamiento_id = db.Column(db.Integer, db.ForeignKey("ayuntamientos.id"), nullable=False)
+    ayuntamiento_id = db.Column(
+        db.Integer,
+        db.ForeignKey("ayuntamientos.id"),
+        nullable=False,
+    )
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
