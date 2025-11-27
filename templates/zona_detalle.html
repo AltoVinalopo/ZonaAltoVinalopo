@@ -1,30 +1,25 @@
 {% extends "base.html" %}
+
 {% block title %}{{ zona.nombre }}{% endblock %}
+{% block header_title %}{{ zona.nombre }}{% endblock %}
 
-{% block header_title %}
-<h1>{{ zona.nombre }}</h1>
-{% endblock %}
-
-{% block header_buttons %}
-<a class="btn-outline" href="{{ url_for('zonas.index') }}">Volver a zonas</a>
+{% block header_actions %}
+  <a href="{{ url_for('zonas.index') }}" class="btn btn-outline">
+    Volver a zonas
+  </a>
 {% endblock %}
 
 {% block body %}
-<div class="zone-panel">
-  <div class="panel-card panel-card-full">
-    <h2>Panel de {{ zona.nombre }}</h2>
-    <p>
+  <section class="zone-detail-wrapper">
+    <h2 class="zone-detail-title">Panel de {{ zona.nombre }}</h2>
+
+    <p class="zone-detail-text">
       Esta zona tiene su propio panel de coordinación.
       Pulsa el botón para abrir el proyecto completo en una nueva pestaña.
     </p>
 
-    {% if zona.url %}
-      <a class="btn-primary" href="{{ zona.url }}" target="_blank" rel="noopener">
-        Abrir panel de {{ zona.nombre }}
-      </a>
-    {% else %}
-      <p><em>No se ha configurado aún la URL de esta zona.</em></p>
-    {% endif %}
-  </div>
-</div>
+    <a href="{{ zona.url }}" target="_blank" rel="noopener" class="btn btn-primary" style="width:100%; margin-top:8px;">
+      Abrir panel de {{ zona.nombre }}
+    </a>
+  </section>
 {% endblock %}
