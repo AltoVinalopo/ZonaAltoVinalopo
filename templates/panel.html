@@ -4,31 +4,34 @@
 {% block header_title %}Panel de coordinación{% endblock %}
 
 {% block body %}
-  <section class="glass-wrapper">
-    <div class="cards-row">
-      <!-- Card ZONAS -->
-      <a class="panel-card" href="{{ url_for('zonas.index') }}">
-        <h2 class="panel-title">Zonas y municipios</h2>
-        <p class="panel-subtitle">
-          Coordinación territorial por zonas.
-        </p>
-        <div class="panel-link">
-          <span>Entrar en zonas</span>
-          <span>→</span>
-        </div>
-      </a>
+<section class="glass-wrapper">
+  <div class="cards-row">
 
-      <!-- Card AYUNTAMIENTOS -->
-      <a class="panel-card" href="{{ url_for('ayuntamientos.panel') }}">
-        <h2 class="panel-title">Ayuntamientos</h2>
-        <p class="panel-subtitle">
-          Buscador municipal y carga de iniciativas.
-        </p>
-        <div class="panel-link">
-          <span>Abrir gestión de ayuntamientos</span>
-          <span>→</span>
-        </div>
-      </a>
-    </div>
-  </section>
+    <!-- Card ZONAS -->
+    <a class="panel-card" href="{{ url_for('zonas.index') }}">
+      <h2 class="panel-title">Zonas y municipios</h2>
+      <p class="panel-subtitle">
+        Coordinación territorial por zonas.
+      </p>
+      <div class="panel-link">
+        <span>Entrar en zonas</span>
+        <span>→</span>
+      </div>
+    </a>
+
+    <!-- Card AYUNTAMIENTOS -->
+    <a class="panel-card" href="{{ url_for('ayuntamientos.panel') }}">
+      <h2 class="panel-title">Ayuntamientos</h2>
+      <p class="panel-subtitle">
+        Buscador municipal y carga de iniciativas.
+      </p>
+      <div class="panel-link">
+        <span>Abrir gestión de ayuntamientos</span>
+        <span>→</span>
+      </div>
+    </a>
+
+  </div>
+</section>
 {% endblock %}
+
