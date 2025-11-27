@@ -1,23 +1,21 @@
 {% extends "base.html" %}
-{% block title %}Panel de coordinación{% endblock %}
-
-{% block header_title %}
-<h1>Panel de coordinación</h1>
-{% endblock %}
-
 {% block body %}
-<div class="panel-grid">
-  <a class="panel-card" href="{{ url_for('zonas.index') }}">
+
+<div class="top-buttons">
+    <span class="btn-small">{{ usuario.username }} ({{ usuario.role }})</span>
+    <a class="btn-small" href="/auth/logout">Salir</a>
+</div>
+
+<div class="card-panel">
     <h2>Zonas y municipios</h2>
     <p>Coordinación territorial por zonas.</p>
-    <span class="card-link">Entrar en zonas →</span>
-  </a>
+    <a class="btn-green" href="/zonas/">Entrar en zonas →</a>
+</div>
 
-  <a class="panel-card" href="https://plenos.onrender.com/" target="_blank" rel="noopener">
+<div class="card-panel">
     <h2>Ayuntamientos</h2>
     <p>Buscador municipal y carga de iniciativas.</p>
-    <span class="card-link">Abrir gestión de ayuntamientos →</span>
-  </a>
+    <a class="btn-green" href="/ayuntamientos/">Abrir gestión de ayuntamientos →</a>
 </div>
-{% endblock %}
 
+{% endblock %}
