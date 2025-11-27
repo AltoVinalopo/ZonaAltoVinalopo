@@ -1,33 +1,24 @@
 {% extends "base.html" %}
-{% block header_actions %}
-    <a href="{{ url_for('panel') }}" class="btn btn-outline">Volver al panel</a>
-    <a href="{{ url_for('auth.logout') }}" class="btn btn-danger">Salir</a>
-{% endblock %}
-
 {% block title %}Zonas y municipios{% endblock %}
 {% block header_title %}Zonas y municipios{% endblock %}
 
 {% block header_actions %}
-  <a href="{{ url_for('ayuntamientos.panel') }}" class="btn btn-outline">
-    Volver al panel
-  </a>
+    <a href="{{ url_for('ayuntamientos.panel') }}" class="btn btn-outline">Volver al panel</a>
+    <a href="{{ url_for('auth.logout') }}" class="btn btn-light">Salir</a>
 {% endblock %}
 
 {% block body %}
-  <section class="glass-wrapper">
-    <div class="zone-grid">
-      {% for zona in zonas %}
-      <a class="zone-card" href="{{ url_for('zonas.detalle_zona', slug=zona.slug) }}">
-        <h2 class="zone-name">{{ zona.nombre }}</h2>
-        <p class="zone-desc">{{ zona.descripcion }}</p>
-        <div class="panel-link">
-          <span>Abrir panel de la zona</span>
-          <span>→</span>
-        </div>
-      </a>
-      {% endfor %}
-    </div>
-  </section>
+<div class="zones-grid">
+    {% for zona in zonas %}
+        <a href="{{ url_for('zonas.zona_detalle', zona_id=zona.id) }}" class="zone-card">
+            <div class="zone-title">{{ zona.nombre }}</div>
+            <div class="zone-desc">
+                {{ zona.descripcion or "Coordinación de la zona " ~ zona.nombre }}.
+            </div>
+            <div class="zone-link">Abrir panel de la zona →</div>
+        </a>
+    {% endfor %}
+</div>
 {% endblock %}
 
 
