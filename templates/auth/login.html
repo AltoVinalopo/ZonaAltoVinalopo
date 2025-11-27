@@ -1,144 +1,35 @@
 {% extends "base.html" %}
-{% block title %}Login{% endblock %}
-
-{% block extra_css %}
-<style>
-
-/* FONDO ANIMADO VERDE VOX */
-body {
-    margin: 0;
-    padding: 0;
-    background: radial-gradient(circle at center,
-                rgba(111, 255, 183, 0.40) 0%,
-                rgba(206, 255, 227, 0.60) 40%,
-                #e8fff1 100%);
-    background-size: 200% 200%;
-    animation: movimientoFondo 6s ease infinite;
-}
-
-@keyframes movimientoFondo {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-/* CONTENEDOR TARJETA */
-.login-card {
-    width: 420px;
-    background: white;
-    padding: 40px;
-    border-radius: 20px;
-    margin: 80px auto;
-    box-shadow: 0 20px 45px rgba(0,0,0,0.18);
-    border: 1px solid #dcefe2;
-}
-
-/* TÍTULOS */
-.login-card h1 {
-    font-size: 28px;
-    font-weight: 900;
-    color: #114b2d;
-}
-
-.login-card h2 {
-    font-size: 16px;
-    color: #333;
-    margin-bottom: 30px;
-}
-
-/* INPUTS */
-.input-group {
-    margin-bottom: 25px;
-}
-
-.input-group label {
-    display: block;
-    margin-bottom: 6px;
-    font-weight: 600;
-    color: #1a4d2e;
-}
-
-.input-group input {
-    width: 100%;
-    padding: 12px 14px;
-    border-radius: 10px;
-    border: 2px solid #b6e3c3;
-    outline: none;
-    font-size: 15px;
-    transition: 0.3s;
-}
-
-.input-group input:focus {
-    border-color: #0daa4e;
-    box-shadow: 0px 0px 8px rgba(16, 161, 66, 0.3);
-}
-
-/* ICONO OJO */
-.ojo-pass {
-    position: absolute;
-    right: 20px;
-    top: 43px;
-    cursor: pointer;
-    font-size: 17px;
-    color: #0b6f3b;
-}
-
-.input-wrapper {
-    position: relative;
-}
-
-/* BOTÓN ACCEDER */
-.btn-acceder {
-    width: 100%;
-    background: #0daa4e;
-    padding: 14px;
-    border-radius: 12px;
-    border: none;
-    font-size: 17px;
-    font-weight: bold;
-    color: white;
-    cursor: pointer;
-    margin-top: 15px;
-    transition: .25s;
-}
-
-.btn-acceder:hover {
-    background: #0bbd56;
-    transform: scale(1.03);
-    box-shadow: 0px 8px 18px rgba(0,150,60,0.3);
-}
-
-</style>
-{% endblock %}
+{% block title %}Acceso coordinación{% endblock %}
+{% block body_class %}is-login{% endblock %}
 
 {% block body %}
 <div class="login-card">
-
-    <h1>Organización Alicante</h1>
-    <h2>Acceso restringido</h2>
+    <div class="login-title">Organización Alicante</div>
+    <div class="login-subtitle">Acceso restringido</div>
 
     <form method="POST">
-
-        <div class="input-group">
-            <label>Usuario</label>
-            <input type="text" name="username">
+        <div class="form-group">
+            <label for="username">Usuario</label>
+            <input id="username" name="username" type="text" class="form-control">
         </div>
 
-        <div class="input-group input-wrapper">
-            <label>Contraseña</label>
-            <input type="password" id="password" name="password">
-            <span class="ojo-pass" onclick="togglePass()">👁</span>
+        <div class="form-group form-control-wrapper">
+            <label for="password">Contraseña</label>
+            <input id="password" name="password" type="password" class="form-control">
+            <span class="password-toggle" onclick="togglePass()">👁</span>
         </div>
 
-        <button class="btn-acceder" type="submit">ACCEDER</button>
-
+        <button type="submit" class="btn btn-primary btn-login">ACCEDER</button>
     </form>
 </div>
+{% endblock %}
 
+{% block extra_js %}
 <script>
 function togglePass() {
-    let campo = document.getElementById("password");
+    const campo = document.getElementById("password");
     campo.type = campo.type === "password" ? "text" : "password";
 }
 </script>
 {% endblock %}
+
