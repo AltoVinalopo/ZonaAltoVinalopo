@@ -1,10 +1,23 @@
-zonas = [
-    {"nombre": "Zona 1 · Alacantí", "url": "https://coordinacionalacanti.onrender.com/"},
-    {"nombre": "Zona 2 · Alto Vinalopó", "url": "https://altovinalopo.onrender.com/"},
-    {"nombre": "Zona 3 · Bajo Vinalopó", "url": "https://bajovinalopo.onrender.com/"},
-    {"nombre": "Zona 4 · Alcoià / Comtat", "url": "https://alcoiacomtat.onrender.com/"},
-    {"nombre": "Zona 5 · Marina Alta", "url": "https://marinaalta.onrender.com/"},
-    {"nombre": "Zona 6 · Marina Baixa", "url": "https://marinabaixa.onrender.com/"},
-    {"nombre": "Zona 7 · Elche y entorno", "url": "https://elche.entorno.onrender.com/"},
-    {"nombre": "Zona 8 · Vega Baja", "url": "https://vegabaja.onrender.com/"},
-]
+# zonas/routes.py
+from flask import render_template
+from flask_login import login_required, current_user
+
+from . import zonas_bp
+
+
+@zonas_bp.route("/")
+@login_required
+def index():
+    """
+    Página principal con todas las zonas y municipios.
+    """
+    # El backend debe tener la variable zonas cargada.
+    # Si antes funcionaba, esto ya existía.
+    from modelos.zonas import obtener_todas_las_zonas  # ejemplo
+    zonas = obtener_todas_las_zonas()
+
+    return render_template(
+        "zonas_index.html",
+        usuario=current_user,
+        zonas=zonas
+    )
