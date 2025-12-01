@@ -4,9 +4,8 @@
 {% block header_title %}{{ zona.nombre }}{% endblock %}
 
 {% block header_actions %}
-  <a href="{{ url_for('zonas.index') }}" class="btn btn-outline">
-    Volver a zonas
-  </a>
+ <a href="{{ url_for('index') }}" class="btn-volver">Volver a zonas</a>
+
 {% endblock %}
 
 {% block body %}
