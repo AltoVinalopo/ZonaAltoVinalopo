@@ -1,6 +1,11 @@
 # zonas/__init__.py
 from flask import Blueprint
 
-zonas_bp = Blueprint("zonas", __name__, url_prefix="/zonas")
+# El blueprint se registra con el nombre correcto "zonas"
+zonas_bp = Blueprint(
+    "zonas",
+    __name__,
+    url_prefix="/zonas"
+)
 
-from . import routes  # noqa
+from . import routes
