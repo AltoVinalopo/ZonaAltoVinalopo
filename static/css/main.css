@@ -1,155 +1,104 @@
-/* --- Ajuste de cuerpo con animación --- */
+/* ======== FONDO ANIMADO - EFECTO ESFERA 3D ======== */
 body {
     margin: 0;
     padding: 0;
     font-family: 'Inter', sans-serif;
+    background: radial-gradient(circle at center, #9af5c5, #6fd59d, #4bbd7a);
     overflow-x: hidden;
-    background: radial-gradient(circle at 50% 50%, #0e402e, #05251b);
-    color: #e5f7ea;
+    position: relative;
 }
 
-/* --- Esferas verdes 3D flotantes --- */
-.bg-sphere {
+/* esfera animada */
+body::before {
+    content: "";
     position: fixed;
-    width: 450px;
-    height: 450px;
+    top: -200px;
+    left: -200px;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(255,255,255,0.4), rgba(0,0,0,0));
     border-radius: 50%;
-    background: radial-gradient(circle, #3fff99, #00b453);
-    opacity: 0.18;
-    filter: blur(40px);
-    animation: floatSphere 18s infinite ease-in-out alternate;
-    z-index: -3;
-}
-
-.bg-sphere:nth-child(1) {
-    top: -100px;
-    left: -80px;
-}
-
-.bg-sphere:nth-child(2) {
-    bottom: -120px;
-    right: -60px;
-    animation-delay: 4s;
-}
-
-@keyframes floatSphere {
-    0% { transform: translateY(0) translateX(0) scale(1); }
-    50% { transform: translateY(60px) translateX(40px) scale(1.1); }
-    100% { transform: translateY(-40px) translateX(-20px) scale(0.95); }
-}
-
-/* --- Líneas tipo circuito electrónico --- */
-.circuit-lines {
-    position: fixed;
-    inset: 0;
-    background-image: 
-        linear-gradient(90deg, rgba(0,255,140,0.12) 1px, transparent 1px),
-        linear-gradient(0deg, rgba(0,255,140,0.12) 1px, transparent 1px);
-    background-size: 70px 70px;
-    animation: moveCircuit 20s linear infinite;
-    z-index: -4;
-    opacity: 0.25;
-}
-
-@keyframes moveCircuit {
-    0% { background-position: 0 0; }
-    100% { background-position: 140px 140px; }
-}
-
-/* --- Efecto escáner horizontal --- */
-.scan-light {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        to bottom,
-        transparent,
-        rgba(150,255,150,0.15),
-        transparent
-    );
-    animation: scanner 6s infinite ease-in-out;
-    z-index: -2;
-}
-
-@keyframes scanner {
-    0% { transform: translateY(-100%); }
-    50% { transform: translateY(100%); }
-    100% { transform: translateY(-100%); }
-}
-
-/* --- Brillos dinámicos --- */
-.glow {
-    position: fixed;
-    width: 70%;
-    height: 70%;
-    top: 15%;
-    left: 15%;
-    background: radial-gradient(circle, rgba(0,255,150,0.12), transparent 70%);
-    filter: blur(100px);
-    animation: glowPulse 8s infinite;
+    filter: blur(80px);
+    animation: orbmove 12s infinite linear;
+    opacity: 0.6;
     z-index: -1;
 }
 
-@keyframes glowPulse {
-    0% { opacity: 0.4; transform: scale(1); }
-    50% { opacity: 0.7; transform: scale(1.15); }
-    100% { opacity: 0.4; transform: scale(1); }
+@keyframes orbmove {
+    0% { transform: translate(0,0); }
+    50% { transform: translate(300px, 200px); }
+    100% { transform: translate(0,0); }
 }
 
-/* --- Tarjetas con hover animado --- */
-.card, .zona-card {
-    transition: transform 0.35s ease, box-shadow 0.35s ease;
+/* ======== TARJETAS (paneles) ======== */
+.card {
+    background: white;
+    border-radius: 28px;
+    padding: 35px;
+    box-shadow: 0px 15px 40px rgba(0,0,0,0.12);
+    transition: all 0.3s ease;
 }
 
-.card:hover, .zona-card:hover {
-    transform: translateY(-10px) scale(1.02);
-    box-shadow: 0 18px 50px rgba(0,255,150,0.3);
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0px 25px 55px rgba(0,0,0,0.18);
 }
 
-/* --- Botones profesionales --- */
-.btn-acceso {
-    background: #16cc5a;
-    padding: 12px 18px;
-    border-radius: 14px;
+/* ======== LOGIN BOX ======== */
+.login-container {
+    width: 450px;
+    background: white;
+    padding: 45px;
+    margin: auto;
+    margin-top: 6%;
+    border-radius: 30px;
+    box-shadow: 0px 15px 40px rgba(0,0,0,0.15);
+}
+
+.input-group {
+    position: relative;
+    width: 100%;
+}
+
+input {
+    width: 100%;
+    padding: 18px;
+    border-radius: 12px;
+    border: 2px solid #68c78a;
+    font-size: 17px;
+    outline: none;
+    background: #f4fdf8;
+}
+
+.toggle-pass {
+    position: absolute;
+    right: 15px;
+    top: 16px;
+    width: 26px;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: 0.2s;
+}
+
+.toggle-pass:hover {
+    opacity: 1;
+}
+
+/* Botón */
+button, .btn-submit {
+    width: 100%;
+    padding: 18px;
+    border: none;
+    border-radius: 12px;
+    background: #0ca53c;
     color: white;
     font-weight: 700;
+    font-size: 20px;
+    cursor: pointer;
     transition: 0.25s;
-    text-decoration: none;
 }
 
-.btn-acceso:hover {
-    background: #0f9d43;
-}
-
-/* --- Menú superior con iconos --- */
-.top-menu {
-    display: flex;
-    gap: 18px;
-    align-items: center;
-    position: absolute;
-    right: 40px;
-    top: 25px;
-}
-
-.icon-btn {
-    background: rgba(255,255,255,0.12);
-    padding: 10px 16px;
-    border-radius: 50px;
-    color: #dfffe9;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    border: 1px solid #32ff90;
-    backdrop-filter: blur(10px);
-    transition: 0.3s;
-    font-weight: 600;
-}
-
-.icon-btn:hover {
-    background: #32ff90;
-    color: #08331f;
-    transform: translateY(-3px);
+button:hover {
+    background: #06992f;
+    transform: scale(1.03);
 }
