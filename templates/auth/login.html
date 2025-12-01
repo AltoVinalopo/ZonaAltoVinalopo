@@ -1,35 +1,72 @@
 {% extends "base.html" %}
-{% block title %}Acceso coordinación{% endblock %}
-{% block body_class %}is-login{% endblock %}
+{% set header = False %}
 
 {% block body %}
-<div class="login-card">
-    <div class="login-title">Organización Alicante</div>
-    <div class="login-subtitle">Acceso restringido</div>
+<style>
+.container-login{
+    width: 450px;
+    margin: 90px auto;
+    padding: 40px;
+    border-radius: 25px;
+    background: white;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+h2{
+    margin: 0 0 10px;
+    font-size: 32px;
+    color:#0c3d2e;
+    font-weight:800;
+}
+
+label{
+    font-size:18px;
+    font-weight:600;
+    color:#0c3d2e;
+}
+
+input{
+    width:100%;
+    padding:15px;
+    margin-top:5px;
+    margin-bottom:20px;
+    border-radius:15px;
+    border:2px solid #7ad399;
+    font-size:18px;
+}
+
+.btn-login{
+    width:100%;
+    background:#0cae46;
+    padding:17px;
+    border-radius:20px;
+    color:white;
+    font-weight:800;
+    font-size:20px;
+    cursor:pointer;
+    border:none;
+    transition:0.2s;
+}
+
+.btn-login:hover{
+    background:#097531;
+}
+</style>
+
+<div class="container-login">
+    <h2>Organización Alicante</h2>
+    <p style="margin-top:-5px; color:#244e3a;">Acceso restringido</p>
 
     <form method="POST">
-        <div class="form-group">
-            <label for="username">Usuario</label>
-            <input id="username" name="username" type="text" class="form-control">
-        </div>
+        <label>Usuario</label>
+        <input type="text" name="username" required>
 
-        <div class="form-group form-control-wrapper">
-            <label for="password">Contraseña</label>
-            <input id="password" name="password" type="password" class="form-control">
-            <span class="password-toggle" onclick="togglePass()">👁</span>
-        </div>
+        <label>Contraseña</label>
+        <input type="password" name="password" id="pass">
 
-        <button type="submit" class="btn btn-primary btn-login">ACCEDER</button>
+        <button class="btn-login">ACCEDER</button>
     </form>
 </div>
-{% endblock %}
 
-{% block extra_js %}
-<script>
-function togglePass() {
-    const campo = document.getElementById("password");
-    campo.type = campo.type === "password" ? "text" : "password";
-}
-</script>
 {% endblock %}
 
