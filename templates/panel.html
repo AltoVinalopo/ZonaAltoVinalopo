@@ -1,30 +1,53 @@
 {% extends "base.html" %}
-{% block title %}Panel de coordinación{% endblock %}
-{% block header_title %}Panel de coordinación{% endblock %}
-
-{% block header_actions %}
-    <a href="{{ url_for('auth.logout') }}" class="btn btn-light">Salir</a>
-{% endblock %}
+{% set header = "Panel de coordinación" %}
+{% set mostrar_volver = False %}
 
 {% block body %}
-<div class="panel-grid">
+<div class="content-box">
 
-    <a class="panel-card" href="{{ url_for('zonas.index') }}">
-        <div class="panel-card-title">Zonas y municipios</div>
-        <div class="panel-card-subtitle">
-            Coordinación territorial por zonas.
+    <div style="display:flex; gap:40px;">
+
+        <div class="card">
+            <h2>Zonas y municipios</h2>
+            <p>Coordinación territorial por zonas.</p>
+            <a class="btn-acceso" href="{{ url_for('zonas.index') }}">Entrar en zonas →</a>
         </div>
-        <div class="panel-card-link">Entrar en zonas →</div>
-    </a>
 
-
-    <a class="panel-card" href="{{ url_for('ayuntamientos.panel') }}">
-        <div class="panel-card-title">Ayuntamientos</div>
-        <div class="panel-card-subtitle">
-            Buscador municipal y carga de iniciativas.
+        <div class="card">
+            <h2>Ayuntamientos</h2>
+            <p>Buscador municipal y carga de iniciativas.</p>
+            <a class="btn-acceso" href="{{ url_for('ayuntamientos.panel') }}">Gestión de ayuntamientos →</a>
         </div>
-        <div class="panel-card-link">Abrir gestión de ayuntamientos →</div>
-    </a>
+
+    </div>
 
 </div>
+
+<style>
+.card{
+    width:50%;
+    background:white;
+    padding:30px;
+    border-radius:25px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
+.card h2{
+    margin:0;
+    color:#0c3d2e;
+    font-size:28px;
+}
+.btn-acceso{
+    margin-top:15px;
+    display:inline-block;
+    padding:12px 18px;
+    border-radius:12px;
+    background:#0cae46;
+    color:white;
+    font-weight:700;
+    text-decoration:none;
+}
+.btn-acceso:hover{
+    background:#087e34;
+}
+</style>
 {% endblock %}
