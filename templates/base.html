@@ -75,14 +75,16 @@
     <header>{{ header }}</header>
     {% endif %}
 
-    <div class="top-buttons">
-        {% if mostrar_volver %}
-        <a href="{{ mostrar_volver }}" class="btn-top">Volver</a>
-        {% endif %}
-        {% if current_user.is_authenticated %}
-        <a href="{{ url_for('auth.logout') }}" class="btn-top">Salir</a>
-        {% endif %}
-    </div>
+  <div class="top-menu">
+    {% if mostrar_volver %}
+    <a href="{{ mostrar_volver }}" class="icon-btn">⬅ Volver</a>
+    {% endif %}
+
+    {% if current_user.is_authenticated %}
+    <a href="{{ url_for('auth.logout') }}" class="icon-btn">⎋ Salir</a>
+    {% endif %}
+</div>
+
 
     <main>
         {% block body %}{% endblock %}
