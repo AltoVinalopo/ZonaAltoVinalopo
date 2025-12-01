@@ -9,6 +9,7 @@ from modelos.zona import Zona
 
 login_manager = LoginManager()
 login_manager.login_view = "auth.login"
+app.secret_key = "MI_CLAVE_SUPER_SECRETA_123456" 
 
 
 def create_app():
