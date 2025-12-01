@@ -1,7 +1,8 @@
 # ayuntamientos/routes.py
-from flask import render_template
+from flask import render_template, redirect, url_for
 from flask_login import login_required, current_user
 
+# CARGAMOS CORRECTAMENTE EL BLUEPRINT
 from . import aytos_bp
 
 
@@ -14,6 +15,5 @@ def panel():
     """
     return render_template(
         "panel.html",
-        usuario=current_user,
+        usuario=current_user
     )
-
