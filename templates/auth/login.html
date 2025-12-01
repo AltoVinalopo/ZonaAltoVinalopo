@@ -1,72 +1,46 @@
 {% extends "base.html" %}
-{% set header = False %}
-
 {% block body %}
-<style>
-.container-login{
-    width: 450px;
-    margin: 90px auto;
-    padding: 40px;
-    border-radius: 25px;
-    background: white;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-}
 
-h2{
-    margin: 0 0 10px;
-    font-size: 32px;
-    color:#0c3d2e;
-    font-weight:800;
-}
+<div class="login-container">
 
-label{
-    font-size:18px;
-    font-weight:600;
-    color:#0c3d2e;
-}
+    <h2 style="color:#0b3d1e; font-size:30px; margin-bottom:5px;">
+        Organización Alicante
+    </h2>
 
-input{
-    width:100%;
-    padding:15px;
-    margin-top:5px;
-    margin-bottom:20px;
-    border-radius:15px;
-    border:2px solid #7ad399;
-    font-size:18px;
-}
+    <p style="color:#305c3a; margin-bottom:25px;">
+        Acceso restringido
+    </p>
 
-.btn-login{
-    width:100%;
-    background:#0cae46;
-    padding:17px;
-    border-radius:20px;
-    color:white;
-    font-weight:800;
-    font-size:20px;
-    cursor:pointer;
-    border:none;
-    transition:0.2s;
-}
-
-.btn-login:hover{
-    background:#097531;
-}
-</style>
-
-<div class="container-login">
-    <h2>Organización Alicante</h2>
-    <p style="margin-top:-5px; color:#244e3a;">Acceso restringido</p>
-
-    <form method="POST">
+    <form method="POST" action="{{ url_for('auth.login') }}">
+        
         <label>Usuario</label>
-        <input type="text" name="username" required>
+        <div class="input-group">
+            <input type="text" name="username" required>
+        </div>
+
+        <br>
 
         <label>Contraseña</label>
-        <input type="password" name="password" id="pass">
+        <div class="input-group">
+            <input type="password" id="password" name="password" required>
 
-        <button class="btn-login">ACCEDER</button>
+            <img src="{{ url_for('static', filename='img/eye.svg') }}" 
+                 class="toggle-pass" 
+                 onclick="togglePassword()">
+        </div>
+
+        <br><br>
+
+        <button type="submit" class="btn-submit">ACCEDER</button>
+
     </form>
 </div>
 
-{% endblock %}
+<script>
+function togglePassword() {
+    const field = document.getElementById("password");
+    field.type = field.type === "password" ? "text" : "password";
+}
+</script>
 
+{% endblock %}
