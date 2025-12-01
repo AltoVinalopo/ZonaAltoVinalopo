@@ -1,24 +1,39 @@
 {% extends "base.html" %}
-{% block title %}Zonas y municipios{% endblock %}
-{% block header_title %}Zonas y municipios{% endblock %}
-
-{% block header_actions %}
-    <a href="{{ url_for('ayuntamientos.panel') }}" class="btn btn-outline">Volver al panel</a>
-    <a href="{{ url_for('auth.logout') }}" class="btn btn-light">Salir</a>
-{% endblock %}
+{% set header = "Zonas y municipios" %}
+{% set mostrar_volver = url_for('ayuntamientos.panel') %}
 
 {% block body %}
-<div class="zones-grid">
-    {% for zona in zonas %}
-        <a href="{{ url_for('zonas.zona_detalle', zona_id=zona.id) }}" class="zone-card">
-            <div class="zone-title">{{ zona.nombre }}</div>
-            <div class="zone-desc">
-                {{ zona.descripcion or "Coordinación de la zona " ~ zona.nombre }}.
-            </div>
-            <div class="zone-link">Abrir panel de la zona →</div>
-        </a>
-    {% endfor %}
-</div>
-{% endblock %}
+<div class="content-box">
 
+    <div class="grid">
+        {% for zona in zonas %}
+        <div class="zona-card">
+            <h3>{{ zona.nombre }}</h3>
+            <p>Coordinación de la zona {{ zona.nombre }}.</p>
+            <a class="btn-acceso" href="{{ zona.url }}">Abrir panel de la zona →</a>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+<style>
+.grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:30px;
+}
+.zona-card{
+    background:white;
+    padding:25px;
+    border-radius:20px;
+    box-shadow:0 15px 30px rgba(0,0,0,0.15);
+}
+.zona-card h3{
+    margin:0;
+    font-size:23px;
+    color:#0c3d2e;
+}
+</style>
+{% endblock %}
 
