@@ -10,7 +10,7 @@
         <div class="zona-card">
             <h3>{{ zona.nombre }}</h3>
             <p>Coordinación de la zona {{ zona.nombre }}.</p>
-            <a class="btn-acceso" href="{{ zona.url }}">Abrir panel de la zona →</a>
+            <a href="{{ url_for('index') }}" class="btn btn-outline">
         </div>
         {% endfor %}
     </div>
