@@ -414,5 +414,14 @@ body {
         padding: 22px 18px 26px;
     }
 }
-
+.marca-agua {
+    position: absolute;
+    top: -40px;
+    left: 20px;
+    font-size: 52px;
+    font-weight: 700;
+    opacity: 0.06;
+    color: #000;
+    pointer-events: none;
+}
 
