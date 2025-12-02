@@ -1,6 +1,5 @@
-# modelos/iniciativa.py
 from datetime import datetime
-from modelos import db
+from . import db
 
 
 class Iniciativa(db.Model):
@@ -19,4 +18,3 @@ class Iniciativa(db.Model):
         nullable=False,
     )
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-
