@@ -8,57 +8,75 @@
     --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.14);
 }
 
+/* ---------------------------- */
+/* FONDO ANIMADO PROFESIONAL    */
+/* ---------------------------- */
+
 * {
     box-sizing: border-box;
 }
 
+/* Fondo degradado dinámico */
 body {
     margin: 0;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
-    background: var(--bg);
     color: var(--text);
+
+    animation: gradientMove 12s ease infinite alternate;
+    background: linear-gradient(130deg, #ffffff, #f4fff5, #e7ffef);
+    background-size: 200% 200%;
 }
 
-/* Burbuja verde animada */
+@keyframes gradientMove {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 60%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Esfera verde flotante */
 .bg-orb {
     position: fixed;
-    width: 130px;
-    height: 130px;
-    background: radial-gradient(circle at 30% 30%, #b9f7d2, var(--green));
+    width: 240px;
+    height: 240px;
+    background: radial-gradient(circle, rgba(0,180,90,0.45), rgba(0,180,90,0));
     border-radius: 50%;
-    top: 12%;
-    right: 10%;
-    filter: blur(1px);
-    opacity: 0.6;
-    animation: floatOrb 6s ease-in-out infinite alternate;
+    top: 20%;
+    left: 12%;
+    filter: blur(28px);
+    animation: orbMove 10s ease-in-out infinite alternate;
     z-index: -1;
 }
-/* Anillo futurista girando */
-.bg-ring {
+
+@keyframes orbMove {
+    0% { transform: translateY(0) translateX(0) scale(1); }
+    100% { transform: translateY(-28px) translateX(22px) scale(1.05); }
+}
+
+/* Líneas verdes moviéndose */
+.bg-lines {
     position: fixed;
-    width: 330px;
-    height: 330px;
-    border-radius: 50%;
-    border: 3px solid rgba(0, 200, 100, 0.18);
-    top: 25%;
-    left: 18%;
-    animation: spinRing 16s linear infinite;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        125deg,
+        rgba(0, 180, 90, 0.08) 0px,
+        rgba(0, 180, 90, 0.1) 2px,
+        transparent 2px,
+        transparent 70px
+    );
+    animation: linesMove 18s linear infinite;
     z-index: -2;
 }
 
-@keyframes spinRing {
-    0% { transform: rotate(0deg) scale(1); }
-    50% { transform: rotate(180deg) scale(1.05); }
-    100% { transform: rotate(360deg) scale(1); }
+@keyframes linesMove {
+    from { background-position: 0 0; }
+    to   { background-position: 400px 800px; }
 }
 
-@keyframes floatOrb {
-    0%   { transform: translateY(0) translateX(0) scale(1); }
-    50%  { transform: translateY(12px) translateX(-6px) scale(1.05); }
-    100% { transform: translateY(-6px) translateX(4px) scale(0.97); }
-}
+/* ---------------------------- */
+/* CABECERA / MENÚ SUPERIOR     */
+/* ---------------------------- */
 
-/* Layout general */
 .app-header {
     padding: 22px 60px 0;
     font-size: 26px;
@@ -88,16 +106,18 @@ body {
     align-items: center;
     gap: 6px;
     cursor: pointer;
-    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .icon-btn:hover {
     transform: translateY(-1px);
     box-shadow: 0 14px 30px rgba(148, 163, 184, 0.55);
-    background: #ffffff;
 }
 
-/* Contenedor central */
+/* ---------------------------- */
+/* CONTENEDOR CENTRAL           */
+/* ---------------------------- */
+
 .main-container {
     max-width: 1100px;
     margin: 80px auto 60px;
@@ -121,7 +141,10 @@ body {
     font-size: 15px;
 }
 
-/* Panel principal */
+/* ---------------------------- */
+/* PANEL PRINCIPAL              */
+/* ---------------------------- */
+
 .panel-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -137,13 +160,12 @@ body {
     box-shadow: 0 12px 30px rgba(15, 23, 42, 0.10);
     text-decoration: none;
     color: var(--text);
-    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 
 .panel-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 18px 40px rgba(15, 23, 42, 0.18);
-    border-color: rgba(0, 166, 81, 0.4);
 }
 
 .panel-icon {
@@ -169,7 +191,10 @@ body {
     color: var(--muted);
 }
 
-/* Zonas */
+/* ---------------------------- */
+/* ZONAS                        */
+/* ---------------------------- */
+
 .zonas-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -196,7 +221,10 @@ body {
     color: var(--muted);
 }
 
-/* Ayuntamientos / iniciativas */
+/* ---------------------------- */
+/* AYUNTAMIENTOS / INICIATIVAS  */
+/* ---------------------------- */
+
 .cards {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
@@ -228,7 +256,10 @@ body {
     color: var(--muted);
 }
 
-/* Botones */
+/* ---------------------------- */
+/* BOTONES                      */
+/* ---------------------------- */
+
 .btn,
 .btn-green {
     display: inline-flex;
@@ -240,7 +271,7 @@ body {
     text-decoration: none;
     border: none;
     cursor: pointer;
-    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .btn-green {
@@ -266,14 +297,16 @@ body {
     box-shadow: 0 18px 42px rgba(15, 23, 42, 0.8);
 }
 
-/* --- LOGIN LAYOUT --- */
+/* ---------------------------- */
+/* LOGIN                        */
+/* ---------------------------- */
+
 .login-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: #ffffff;
-    position: relative;
+    padding: 20px;
 }
 
 .login-card {
@@ -284,19 +317,6 @@ body {
     background: #ffffff;
     box-shadow: 0 22px 60px rgba(15, 23, 42, 0.30);
     z-index: 1;
-}
-
-.login-tag {
-    display: inline-flex;
-    padding: 4px 10px;
-    border-radius: 999px;
-    background: rgba(0, 166, 81, 0.10);
-    color: var(--green-dark);
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    margin-bottom: 6px;
 }
 
 .login-card h1 {
@@ -365,7 +385,7 @@ body {
     font-weight: 600;
     cursor: pointer;
     box-shadow: 0 14px 35px rgba(0, 166, 81, 0.5);
-    transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s;
 }
 
 .btn-login:hover {
@@ -374,19 +394,10 @@ body {
     box-shadow: 0 20px 50px rgba(0, 166, 81, 0.75);
 }
 
-/* Mensajes flash */
-.flash-list {
-    list-style: none;
-    padding-left: 0;
-    margin: 8px 0 0;
-    font-size: 12px;
-}
+/* ---------------------------- */
+/* RESPONSIVE                   */
+/* ---------------------------- */
 
-.flash-error {
-    color: #b91c1c;
-}
-
-/* Responsive */
 @media (max-width: 768px) {
     .app-header {
         padding: 18px 20px 0;
@@ -403,4 +414,5 @@ body {
         padding: 22px 18px 26px;
     }
 }
+
 
