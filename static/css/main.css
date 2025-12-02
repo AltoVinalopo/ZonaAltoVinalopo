@@ -390,33 +390,29 @@ body {
     color: #000;
     pointer-events: none;
 }
-
-/* ---------------------------- */
-/* ESFERA MÓVIL                 */
-/* ---------------------------- */
-
-.moving-sphere {
+/* Glow ambiental tecnológico */
+.moving-glow {
     position: fixed;
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 35% 35%, #00c476, #009f5a);
-    box-shadow: 0 10px 40px rgba(0, 160, 90, 0.45);
+    top: 0;
+    left: 0;
+    width: 160%;
+    height: 160%;
+    background: radial-gradient(circle at 50% 50%, rgba(0, 200, 140, 0.25), rgba(0, 200, 140, 0.05), transparent);
+    filter: blur(60px);
+    animation: glowMove 24s ease-in-out infinite;
     z-index: -1;
-    opacity: 0.85;
-    animation: sphereMove 28s ease-in-out infinite;
     pointer-events: none;
 }
 
-/* Movimiento elegante total por la pantalla */
-@keyframes sphereMove {
-    0%   { transform: translate(0vw, 0vh); }
-    20%  { transform: translate(60vw, 10vh); }
-    40%  { transform: translate(55vw, 70vh); }
-    60%  { transform: translate(10vw, 80vh); }
-    80%  { transform: translate(5vw, 30vh); }
-    100% { transform: translate(0vw, 0vh); }
+/* Movimiento suave tipo "respiración" */
+@keyframes glowMove {
+    0%   { transform: translate(-20%, -15%) scale(1); }
+    25%  { transform: translate(10%, 5%) scale(1.07); }
+    50%  { transform: translate(20%, -10%) scale(1.05); }
+    75%  { transform: translate(-10%, 15%) scale(1.08); }
+    100% { transform: translate(-20%, -15%) scale(1); }
 }
+
 
 /* ---------------------------- */
 /* BOTÓN BUSCADOR               */
