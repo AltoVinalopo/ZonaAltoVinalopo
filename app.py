@@ -12,7 +12,6 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
 
-    # Extensiones
     db.init_app(app)
 
     login_manager = LoginManager()
@@ -21,14 +20,12 @@ def create_app():
 
     @login_manager.user_loader
     def load_user(user_id):
-        if not user_id:
-            return None
-        try:
-            return User.query.get(int(user_id))
-        except (TypeError, ValueError):
-            return None
+        return User.query.get(int(user_id))
 
-    # Blueprints
+    # Crear tablas automáticamente en Render
+    with app.app_context():
+        db.create_all()
+
     app.register_blueprint(auth_bp, url_prefix="/auth")
     app.register_blueprint(zonas_bp)
     app.register_blueprint(aytos_bp, url_prefix="/ayuntamientos")
@@ -43,6 +40,5 @@ def create_app():
 app = create_app()
 
 if __name__ == "__main__":
-    app.run(debug=True)
-
+    app.run()
 
