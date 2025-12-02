@@ -2,28 +2,33 @@
 {% block title %}Zonas y municipios{% endblock %}
 
 {% block body %}
+
 <div class="main-container">
+
+    <!-- Marca de agua -->
+    <div class="marca-agua">Zonas</div>
+
     <h1 class="page-title">Zonas y municipios</h1>
-    <p class="page-subtitle">
-        Panel de enlaces rápidos de trabajo por zonas.
-    </p>
+    <p class="page-subtitle">Panel de enlaces rápidos de trabajo por zonas.</p>
 
     <div class="zonas-grid">
-        {% for z in zonas %}
-        <div class="zona-card">
-            <h3>{{ z.nombre }}</h3>
-            {% if z.descripcion %}
-            <p>{{ z.descripcion }}</p>
-            {% else %}
-            <p>Coordinación de la zona {{ z.nombre }}.</p>
-            {% endif %}
-            {% if z.url %}
-            <a class="btn-green" href="{{ z.url }}" target="_blank">Abrir proyecto de la zona →</a>
-            {% endif %}
+
+        <!-- Zona funcional -->
+        <a class="zona-card zona-activa" href="https://coordinacionalacanti.onrender.com/" target="_blank">
+            <h3>Zona Alacantí</h3>
+            <p>Acceder al panel operativo.</p>
+        </a>
+
+        <!-- Zonas inactivas -->
+        {% for zona in ["Zona Alto Vinalopó", "Zona Baix Segura", "Zona Marina Alta", "Zona Marina Baixa", "Zona L'Alcoià", "Zona El Comtat", "Zona Vega Baja"] %}
+        <div class="zona-card zona-disabled">
+            <h3>{{ zona }}</h3>
+            <p>Próximamente disponible</p>
         </div>
-        {% else %}
-        <p>Todavía no hay zonas creadas en la base de datos.</p>
         {% endfor %}
+
     </div>
+
 </div>
+
 {% endblock %}
