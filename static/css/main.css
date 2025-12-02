@@ -573,38 +573,52 @@ body {
         margin-bottom: 20px;
     }
 
-    /* Inputs más grandes y cómodos en móvil */
-    .login-card input[type="text"],
-    .login-card input[type="password"] {
-        padding: 14px !important;
-        font-size: 16px !important;
+/* ================================
+   MODO MÓVIL — LOGIN AGRANDADO
+   ================================ */
+@media (max-width: 620px) {
+
+    /* Forzamos la tarjeta a ocupar TODO el ancho del móvil */
+    .login-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 100% !important;
+        margin: 0 auto !important;
+        padding: 28px 20px 34px !important;
+        border-radius: 22px !important;
+
+        /* AQUÍ LA CLAVE → AMPLIAR VISUALMENTE */
+        transform: scale(1.35) !important;   /* 35% más grande */
+        transform-origin: center top;
     }
 
-    /* Icono de mostrar contraseña más grande */
-    .toggle-pass {
-        padding: 10px 12px !important;
-        font-size: 16px !important;
+    /* Centrado vertical real */
+    .login-wrapper {
+        padding-top: 10vh !important;
+        justify-content: flex-start !important;
+        align-items: flex-start !important;
+    }
+
+    /* Inputs más grandes */
+    .login-card input[type="text"],
+    .login-card input[type="password"] {
+        padding: 16px !important;
+        font-size: 18px !important;
     }
 
     /* Botón más grande */
     .btn-login {
-        padding: 14px !important;
-        font-size: 17px !important;
+        padding: 16px !important;
+        font-size: 18px !important;
+        border-radius: 14px !important;
     }
 
-    /* Botones superior Volver/Salir más pequeños */
+    /* Botones Volver / Salir ajustados */
     .top-menu {
-        right: 10px !important;
-        top: 10px !important;
+        right: 8px !important;
+        top: 8px !important;
         transform: scale(0.85);
     }
-
-    /* Glow más suave en móvil */
-    .moving-glow {
-        width: 200%;
-        height: 200%;
-        filter: blur(85px);
-        opacity: 0.55;
-    }
 }
+
 
