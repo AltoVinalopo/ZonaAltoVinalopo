@@ -33,6 +33,24 @@ body {
     animation: floatOrb 6s ease-in-out infinite alternate;
     z-index: -1;
 }
+/* Anillo futurista girando */
+.bg-ring {
+    position: fixed;
+    width: 330px;
+    height: 330px;
+    border-radius: 50%;
+    border: 3px solid rgba(0, 200, 100, 0.18);
+    top: 25%;
+    left: 18%;
+    animation: spinRing 16s linear infinite;
+    z-index: -2;
+}
+
+@keyframes spinRing {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.05); }
+    100% { transform: rotate(360deg) scale(1); }
+}
 
 @keyframes floatOrb {
     0%   { transform: translateY(0) translateX(0) scale(1); }
