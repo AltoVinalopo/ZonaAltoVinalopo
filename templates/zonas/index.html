@@ -5,11 +5,10 @@
 
 <div class="main-container">
 
-    <!-- Marca de agua -->
     <div class="marca-agua">Zonas</div>
 
     <h1 class="page-title">Zonas y municipios</h1>
-    <p class="page-subtitle">Panel de enlaces rápidos de trabajo por zonas.</p>
+    <p class="page-subtitle">Panel de enlaces rápidos por zonas.</p>
 
     <div class="zonas-grid">
 
@@ -19,13 +18,14 @@
             <p>Acceder al panel operativo.</p>
         </a>
 
-        <!-- Zonas inactivas -->
-        {% for zona in ["Zona Alto Vinalopó", "Zona Baix Segura", "Zona Marina Alta", "Zona Marina Baixa", "Zona L'Alcoià", "Zona El Comtat", "Zona Vega Baja"] %}
-        <div class="zona-card zona-disabled">
-            <h3>{{ zona }}</h3>
-            <p>Próximamente disponible</p>
-        </div>
-        {% endfor %}
+        <!-- Zonas deshabilitadas -->
+        <div class="zona-card zona-disabled"><h3>Zona Alto Vinalopó</h3><p>Próximamente</p></div>
+        <div class="zona-card zona-disabled"><h3>Zona Marina Alta</h3><p>Próximamente</p></div>
+        <div class="zona-card zona-disabled"><h3>Zona Marina Baixa</h3><p>Próximamente</p></div>
+        <div class="zona-card zona-disabled"><h3>Zona Baix Segura</h3><p>Próximamente</p></div>
+        <div class="zona-card zona-disabled"><h3>Zona L'Alcoià</h3><p>Próximamente</p></div>
+        <div class="zona-card zona-disabled"><h3>Zona El Comtat</h3><p>Próximamente</p></div>
+        <div class="zona-card zona-disabled"><h3>Zona Vega Baja</h3><p>Próximamente</p></div>
 
     </div>
 
