@@ -1,27 +1,31 @@
 {% extends "base.html" %}
 {% block title %}Ayuntamientos{% endblock %}
+
 {% block body %}
-<div class="content">
-  <h1>Últimas iniciativas municipales</h1>
-  <p class="subtitle">Vista de solo lectura. Para subir nuevas iniciativas, accede como administrador.</p>
-  <div class="cards">
-    {% for ini in iniciativas %}
-    <article class="card">
-      <header>
-        <h2>{{ ini.titulo }}</h2>
-        <p class="ayto">{{ ini.ayuntamiento.nombre if ini.ayuntamiento else "" }}</p>
-      </header>
-      <p class="meta">
-        {% if ini.fecha_pleno %}Pleno: {{ ini.fecha_pleno.strftime("%d/%m/%Y") }} · {% endif %}
-        {{ ini.concejal_nombre or "Concejal" }} · Estado: {{ ini.estado }}
-      </p>
-      {% if ini.pdf_path %}
-      <a class="btn" href="{{ url_for('static', filename=ini.pdf_path) }}" target="_blank">Ver PDF</a>
-      {% endif %}
-    </article>
-    {% else %}
-    <p>No hay iniciativas registradas todavía.</p>
-    {% endfor %}
-  </div>
+<div class="main-container">
+    <h1 class="page-title">Últimas iniciativas municipales</h1>
+    <p class="page-subtitle">
+        Vista de solo lectura. Para subir nuevas iniciativas, accede como administrador.
+    </p>
+
+    <div class="cards">
+        {% for ini in iniciativas %}
+        <article class="card">
+            <header>
+                <h2>{{ ini.titulo }}</h2>
+                <p class="ayto">{{ ini.ayuntamiento.nombre if ini.ayuntamiento else "" }}</p>
+            </header>
+            <p class="meta">
+                {% if ini.fecha_pleno %}Pleno: {{ ini.fecha_pleno.strftime("%d/%m/%Y") }} · {% endif %}
+                {{ ini.concejal_nombre or "Concejal" }} · Estado: {{ ini.estado }}
+            </p>
+            {% if ini.pdf_path %}
+            <a class="btn" href="{{ ini.pdf_path }}" target="_blank">Ver PDF</a>
+            {% endif %}
+        </article>
+        {% else %}
+        <p>No hay iniciativas registradas todavía.</p>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}
