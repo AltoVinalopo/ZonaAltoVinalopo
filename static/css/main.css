@@ -573,30 +573,44 @@ body {
         margin-bottom: 20px;
     }
 
-/* ================================
-   MODO MÓVIL — LOGIN AGRANDADO
-   ================================ */
+/* ==========================================================
+   RESPONSIVE LOGIN — MÓVIL
+   ========================================================== */
 @media (max-width: 620px) {
 
-    /* Forzamos la tarjeta a ocupar TODO el ancho del móvil */
+    /* Wrapper centrado */
+    .login-wrapper {
+        min-height: 100vh !important;
+        padding: 0 16px !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+
+    /* Tarjeta FULL WIDTH + ESCALA */
     .login-card {
         width: 100% !important;
         max-width: 100% !important;
         min-width: 100% !important;
-        margin: 0 auto !important;
-        padding: 28px 20px 34px !important;
-        border-radius: 22px !important;
 
-        /* AQUÍ LA CLAVE → AMPLIAR VISUALMENTE */
-        transform: scale(1.35) !important;   /* 35% más grande */
-        transform-origin: center top;
+        padding: 26px 20px 32px !important;
+        border-radius: 20px !important;
+
+        /* AMPLIAR VISUALMENTE (clave) */
+        transform: scale(1.40) !important;
+        transform-origin: center top !important;
     }
 
-    /* Centrado vertical real */
-    .login-wrapper {
-        padding-top: 10vh !important;
-        justify-content: flex-start !important;
-        align-items: flex-start !important;
+    /* Títulos */
+    .login-card h1 {
+        text-align: center !important;
+        font-size: 26px !important;
+    }
+
+    .login-card .sub {
+        text-align: center !important;
+        font-size: 15px !important;
+        margin-bottom: 20px !important;
     }
 
     /* Inputs más grandes */
@@ -604,21 +618,20 @@ body {
     .login-card input[type="password"] {
         padding: 16px !important;
         font-size: 18px !important;
+        border-radius: 12px !important;
     }
 
-    /* Botón más grande */
+    /* Botón grande */
     .btn-login {
         padding: 16px !important;
         font-size: 18px !important;
-        border-radius: 14px !important;
+        border-radius: 16px !important;
     }
 
-    /* Botones Volver / Salir ajustados */
+    /* Botones superiores más pequeños */
     .top-menu {
         right: 8px !important;
         top: 8px !important;
-        transform: scale(0.85);
+        transform: scale(0.8) !important;
     }
 }
-
-
