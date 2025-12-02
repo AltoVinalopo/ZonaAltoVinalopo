@@ -3,85 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ title or "Coordinación" }}</title>
-
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', sans-serif;
-            background: radial-gradient(circle at 50% 50%, #c9f5d8, #6fd39c);
-            background-size: 400% 400%;
-            animation: moveBg 15s ease infinite;
-        }
-
-        @keyframes moveBg {
-            0% { background-position: 0% 0%; }
-            50% { background-position: 100% 100%; }
-            100% { background-position: 0% 0%; }
-        }
-
-        header {
-            width: 100%;
-            padding: 30px 60px;
-            font-size: 38px;
-            font-weight: 800;
-            color: #0c3d2e;
-        }
-
-        .top-buttons {
-            position: absolute;
-            right: 40px;
-            top: 35px;
-            display: flex;
-            gap: 15px;
-        }
-
-        .btn-top {
-            padding: 10px 20px;
-            border-radius: 40px;
-            border: 2px solid #0c3d2e;
-            background: white;
-            cursor: pointer;
-            font-size: 15px;
-            transition: 0.2s;
-        }
-
-        .btn-top:hover{
-            background:#0c3d2e;
-            color:white;
-        }
-
-        .content-box {
-            background: rgba(255,255,255,0.75);
-            backdrop-filter: blur(20px);
-            border-radius: 35px;
-            padding: 40px;
-            width: 88%;
-            margin: 0 auto;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
-        }
-    </style>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-
 </head>
-
 <body>
-    <div class="circuit-lines"></div>
-<div class="scan-light"></div>
-<div class="glow"></div>
-<div class="bg-sphere"></div>
-<div class="bg-sphere"></div>
-<header>
+<div class="bg-orb"></div>
+
 {% if current_user.is_authenticated %}
-    <a href="{{ url_for('auth.logout') }}" class="logout-btn">Salir</a>
-{% endif %}
+<header class="app-header">
+    <div class="app-header-title">
+        Panel coordinación Zona Alto Vinalopó
+    </div>
 </header>
+{% endif %}
 
-
-  <div class="top-menu">
+<div class="top-menu">
     {% if mostrar_volver %}
-    <a href="{{ mostrar_volver }}" class="icon-btn">⬅ Volver</a>
+    <a href="{{ mostrar_volver }}" class="icon-btn">← Volver</a>
     {% endif %}
 
     {% if current_user.is_authenticated %}
@@ -89,10 +26,9 @@
     {% endif %}
 </div>
 
-
-    <main>
-        {% block body %}{% endblock %}
-    </main>
+<main>
+    {% block body %}{% endblock %}
+</main>
 
 </body>
 </html>
