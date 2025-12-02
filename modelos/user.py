@@ -1,4 +1,3 @@
-# modelos/user.py
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
@@ -11,7 +10,7 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(80), unique=True, nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
 
-    # Roles:
+    # Roles de ejemplo:
     #  - ADMIN_GENERAL
     #  - COORDINADOR_ZONA
     #  - CONCEJAL
@@ -28,4 +27,3 @@ class User(UserMixin, db.Model):
 
     def has_role(self, *roles) -> bool:
         return self.role in roles
-
