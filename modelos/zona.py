@@ -1,5 +1,4 @@
-# modelos/zona.py
-from modelos import db
+from . import db
 
 
 class Zona(db.Model):
@@ -7,4 +6,6 @@ class Zona(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(120), nullable=False)
-    url = db.Column(db.String(255), nullable=True)  # enlace externo al proyecto de la zona
+    slug = db.Column(db.String(120), unique=True, nullable=True)
+    descripcion = db.Column(db.String(255), nullable=True)
+    url = db.Column(db.String(255), nullable=True)
