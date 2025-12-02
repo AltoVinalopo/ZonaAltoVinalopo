@@ -1,13 +1,24 @@
 {% extends "base.html" %}
 {% block title %}Ayuntamientos{% endblock %}
+{% set titulo_pagina = "Panel Organización" %}
 
 {% block body %}
+
 <div class="main-container">
+
     <h1 class="page-title">Últimas iniciativas municipales</h1>
     <p class="page-subtitle">
         Vista de solo lectura. Para subir nuevas iniciativas, accede como administrador.
     </p>
 
+    <!-- BOTÓN DEL BUSCADOR -->
+    <div style="text-align: center; margin-bottom: 25px; margin-top: 10px;">
+        <a href="https://plenos.onrender.com/" target="_blank" class="btn-buscador">
+            🔍 BUSCADOR DE INICIATIVAS
+        </a>
+    </div>
+
+    <!-- INICIATIVAS -->
     <div class="cards">
         {% for ini in iniciativas %}
         <article class="card">
@@ -15,10 +26,12 @@
                 <h2>{{ ini.titulo }}</h2>
                 <p class="ayto">{{ ini.ayuntamiento.nombre if ini.ayuntamiento else "" }}</p>
             </header>
+
             <p class="meta">
                 {% if ini.fecha_pleno %}Pleno: {{ ini.fecha_pleno.strftime("%d/%m/%Y") }} · {% endif %}
                 {{ ini.concejal_nombre or "Concejal" }} · Estado: {{ ini.estado }}
             </p>
+
             {% if ini.pdf_path %}
             <a class="btn" href="{{ ini.pdf_path }}" target="_blank">Ver PDF</a>
             {% endif %}
@@ -27,5 +40,7 @@
         <p>No hay iniciativas registradas todavía.</p>
         {% endfor %}
     </div>
+
 </div>
+
 {% endblock %}
