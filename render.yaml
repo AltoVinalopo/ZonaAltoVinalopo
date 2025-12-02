@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: coordinacionalacanti
+    name: zona-alto-vinalopo
     env: python
     buildCommand: ""
-    startCommand: python app.py
+    startCommand: gunicorn app:app
