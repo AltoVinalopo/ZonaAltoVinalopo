@@ -1,25 +1,31 @@
 {% extends "base.html" %}
-{% block title %}Panel principal{% endblock %}
+{% block title %}Panel de trabajo{% endblock %}
 
 {% block body %}
+
 <div class="main-container">
-    <h1 class="page-title">Zona Alto Vinalopó</h1>
-    <p class="page-subtitle">
-        Elige qué quieres consultar o gestionar.
-    </p>
+
+    <!-- Marca de agua del fondo -->
+    <div class="marca-agua">Zona Alto Vinalopó</div>
+
+    <h1 class="page-title">Panel de trabajo</h1>
+    <p class="page-subtitle">Elige qué quieres consultar o gestionar.</p>
 
     <div class="panel-grid">
+
         <a class="panel-card" href="{{ url_for('zonas.index') }}">
             <span class="panel-icon">🗺️</span>
             <h2>Zonas y municipios</h2>
-            <p>Listado de zonas del Alacantí y sus enlaces de trabajo.</p>
+            <p>Listado de zonas para trabajo y enlaces externos.</p>
         </a>
 
         <a class="panel-card" href="{{ url_for('ayuntamientos.listado_iniciativas') }}">
             <span class="panel-icon">🏛️</span>
             <h2>Ayuntamientos</h2>
-            <p>Últimas iniciativas registradas por municipio.</p>
+            <p>Iniciativas registradas por municipio.</p>
         </a>
+
     </div>
 </div>
+
 {% endblock %}
