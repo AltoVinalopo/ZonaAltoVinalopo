@@ -437,29 +437,30 @@ body {
     opacity: 0.45;
     cursor: not-allowed;
 }
-/* Esfera animada premium moviéndose por el fondo */
+/* Esfera sólida en movimiento elegante y profesional */
 .moving-sphere {
     position: fixed;
-    width: 260px;
-    height: 260px;
-    background: radial-gradient(circle at 35% 30%, rgba(0,255,155,0.45), rgba(0,180,120,0.15), rgba(0,150,100,0));
+    width: 180px;
+    height: 180px;
     border-radius: 50%;
-    filter: blur(12px);
+    background: radial-gradient(circle at 35% 35%, #00c476, #009f5a);
+    box-shadow: 0 10px 40px rgba(0, 160, 90, 0.45);
     z-index: -1;
-    animation: floatSphere 22s ease-in-out infinite alternate;
+    opacity: 0.85;
+    animation: sphereMove 28s ease-in-out infinite;
     pointer-events: none;
-    opacity: 0.65;
 }
 
-/* Animación elegante y pseudo-aleatoria */
-@keyframes floatSphere {
-    0%   { transform: translate(0px, 0px) scale(1); }
-    20%  { transform: translate(120px, -40px) scale(1.08); }
-    40%  { transform: translate(220px, 80px) scale(0.95); }
-    60%  { transform: translate(-60px, 140px) scale(1.05); }
-    80%  { transform: translate(-180px, -20px) scale(0.9); }
-    100% { transform: translate(40px, -60px) scale(1.03); }
+/* Movimiento elegante total por la pantalla */
+@keyframes sphereMove {
+    0%   { transform: translate(0vw, 0vh); }
+    20%  { transform: translate(60vw, 10vh); }
+    40%  { transform: translate(55vw, 70vh); }
+    60%  { transform: translate(10vw, 80vh); }
+    80%  { transform: translate(5vw, 30vh); }
+    100% { transform: translate(0vw, 0vh); }
 }
+
 /* Botón del buscador de iniciativas */
 .btn-buscador {
     display: inline-block;
