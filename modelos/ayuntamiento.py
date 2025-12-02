@@ -1,5 +1,4 @@
-# modelos/ayuntamiento.py
-from modelos import db
+from . import db
 
 
 class Ayuntamiento(db.Model):
@@ -9,8 +8,5 @@ class Ayuntamiento(db.Model):
     nombre = db.Column(db.String(100), nullable=False)
     municipio = db.Column(db.String(100), nullable=False)
 
-    # Usuarios ligados a este ayuntamiento (concejal, etc.)
     usuarios = db.relationship("User", backref="ayuntamiento", lazy=True)
-
-    # Iniciativas que pertenecen a este ayuntamiento
     iniciativas = db.relationship("Iniciativa", backref="ayuntamiento", lazy=True)
