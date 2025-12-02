@@ -439,17 +439,6 @@ body {
     color: #000;
     pointer-events: none;
 }
-/* Marca de agua minimalista */
-.marca-agua {
-    position: absolute;
-    top: -35px;
-    left: 12px;
-    font-size: 48px;
-    font-weight: 700;
-    opacity: 0.05;
-    color: #000;
-    pointer-events: none;
-}
 
 /* Zona activa */
 .zona-activa {
