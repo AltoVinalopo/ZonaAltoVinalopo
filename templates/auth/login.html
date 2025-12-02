@@ -5,32 +5,45 @@
 {% block body %}
 
 <div class="login-wrapper">
-
     <div class="login-card">
-
-        <h1>Organización Alicante</h1>
-        <p class="sub">Acceso restringido</p>
+        <div class="login-tag">VOX · Zona Alto Vinalopó</div>
+        <h1>Panel interno</h1>
+        <p class="sub">Introduce tus credenciales</p>
 
         <form method="POST">
+            <label for="username">Usuario</label>
+            <input type="text" id="username" name="username" autocomplete="username" required>
 
-            <!-- USUARIO -->
-            <label>Usuario</label>
-            <input type="text" name="username" required>
-
-            <!-- CONTRASEÑA -->
-            <label>Contrasena</label>
-
+            <label for="password">Contraseña</label>
             <div class="pass-group">
-                <input type="password" id="password" name="password" required>
-                <img src="{{ url_for('static', filename='img/eye.svg') }}" 
-                     class="toggle-pass" onclick="togglePassword()">
+                <input type="password" id="password" name="password" autocomplete="current-password" required>
+                <button type="button" class="toggle-pass" onclick="togglePassword()">👁</button>
             </div>
 
-            <button class="btn-login">ACCEDER</button>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <ul class="flash-list">
+                {% for category, msg in messages %}
+                <li class="flash-{{ category }}">{{ msg }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
 
+            <button class="btn-login" type="submit">Acceder</button>
         </form>
-
     </div>
 </div>
+
+<script>
+function togglePassword() {
+    const input = document.getElementById("password");
+    if (input.type === "password") {
+        input.type = "text";
+    } else {
+        input.type = "password";
+    }
+}
+</script>
 
 {% endblock %}
