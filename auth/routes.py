@@ -1,29 +1,28 @@
-# auth/routes.py
-
 from flask import render_template, request, redirect, url_for, flash
-from flask_login import login_user, logout_user, login_required
-from werkzeug.security import check_password_hash
+from flask_login import login_user, logout_user, login_required, current_user
+from modelos.user import User
+from modelos import db
 from . import auth_bp
-from modelos.usuario import Usuario
 
 
 @auth_bp.route("/login", methods=["GET", "POST"])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for("ayuntamientos.panel"))
+
     if request.method == "POST":
+        username = request.form.get("username", "").strip()
+        password = request.form.get("password", "")
 
-        username = request.form.get("username")
-        password = request.form.get("password")
+        user = User.query.filter_by(username=username).first()
+        if user and user.check_password(password):
+            login_user(user)
+            return redirect(url_for("ayuntamientos.panel"))
 
-        usuario = Usuario.query.filter_by(username=username).first()
-
-        if usuario and check_password_hash(usuario.password, password):
-            login_user(usuario)
-            return redirect(url_for("aytos.panel"))
-
-        flash("Credenciales incorrectas", "error")
+        flash("Usuario o contraseña incorrectos", "error")
         return redirect(url_for("auth.login"))
 
-    return render_template("login.html")
+    return render_template("auth/login.html")
 
 
 @auth_bp.route("/logout")
@@ -31,5 +30,4 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for("auth.login"))
-
 
