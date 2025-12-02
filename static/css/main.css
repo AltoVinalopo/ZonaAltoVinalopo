@@ -439,4 +439,34 @@ body {
     color: #000;
     pointer-events: none;
 }
+/* Marca de agua minimalista */
+.marca-agua {
+    position: absolute;
+    top: -35px;
+    left: 12px;
+    font-size: 48px;
+    font-weight: 700;
+    opacity: 0.05;
+    color: #000;
+    pointer-events: none;
+}
+
+/* Zona activa */
+.zona-activa {
+    cursor: pointer;
+    border: 1px solid rgba(0, 166, 81, 0.3);
+    box-shadow: 0 12px 24px rgba(0, 166, 81, 0.25);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.zona-activa:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 34px rgba(0, 166, 81, 0.40);
+}
+
+/* Zonas desactivadas */
+.zona-disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
 
