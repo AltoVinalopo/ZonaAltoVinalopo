@@ -1,21 +1,29 @@
 {% extends "base.html" %}
+{% block title %}Zonas y municipios{% endblock %}
+
 {% block body %}
+<div class="main-container">
+    <h1 class="page-title">Zonas y municipios</h1>
+    <p class="page-subtitle">
+        Panel de enlaces rápidos de trabajo por zonas.
+    </p>
 
-<div class="top-buttons">
-    <a class="btn-small" href="/ayuntamientos/panel">Volver al panel</a>
-    <a class="btn-small" href="/auth/logout">Salir</a>
-</div>
-
-<h1>Zonas y municipios</h1>
-
-<div class="zonas-grid">
-    {% for z in zonas %}
-    <div class="zona-card">
-        <h3>{{ z.nombre }}</h3>
-        <p>{{ z.descripcion }}</p>
-        <a class="btn-green" href="/zonas/{{ z.slug }}/">Abrir panel de la zona →</a>
+    <div class="zonas-grid">
+        {% for z in zonas %}
+        <div class="zona-card">
+            <h3>{{ z.nombre }}</h3>
+            {% if z.descripcion %}
+            <p>{{ z.descripcion }}</p>
+            {% else %}
+            <p>Coordinación de la zona {{ z.nombre }}.</p>
+            {% endif %}
+            {% if z.url %}
+            <a class="btn-green" href="{{ z.url }}" target="_blank">Abrir proyecto de la zona →</a>
+            {% endif %}
+        </div>
+        {% else %}
+        <p>Todavía no hay zonas creadas en la base de datos.</p>
+        {% endfor %}
     </div>
-    {% endfor %}
 </div>
-
 {% endblock %}
